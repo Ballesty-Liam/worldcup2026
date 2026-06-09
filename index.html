@@ -699,11 +699,13 @@ function hasBeenPicked(name, potIndex) {
 //  CONFETTI
 // ─────────────────────────────────────────────────
 const canvas = document.getElementById('confetti-canvas');
-const ctx = canvas.getContext('2d');
+let ctx = null;
+try { ctx = canvas.getContext('2d'); } catch(e) {}
 let confettiParticles = [];
 let confettiAnimId = null;
 
 function launchConfetti() {
+  if (!ctx) return;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const colors = ['#f59e0b','#10b981','#8b5cf6','#ef4444','#60a5fa','#fbbf24','#34d399'];
@@ -727,6 +729,7 @@ function launchConfetti() {
 }
 
 function animateConfetti() {
+  if (!ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   confettiParticles = confettiParticles.filter(p => p.y < canvas.height + 20 && p.life > 0);
   confettiParticles.forEach(p => {
