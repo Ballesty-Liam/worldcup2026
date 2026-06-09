@@ -178,6 +178,7 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
     <button class="tab-btn" id="tab-home" onclick="showView('home')">🏠 Home</button>
     <button class="tab-btn" id="tab-draft" onclick="showView('draft')">🎲 Draft</button>
     <button class="tab-btn" id="tab-leaderboard" onclick="showView('leaderboard')">🏆 Leaderboard</button>
+    <button class="tab-btn" id="tab-coffee" onclick="showView('coffee')" style="border-color:rgba(139,92,246,.4);color:#c4b5fd">🙏 Buy me a coffee!</button>
     <button class="tab-btn" style="border-color:rgba(239,68,68,.4);color:var(--red)" onclick="reportIssue()">⚠️ Report Issue</button>
   </nav>
   <div class="h-status">
@@ -328,6 +329,13 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   <div class="no-data" id="no-data-msg" style="display:none">
     ⏳ Tournament starts June 11 — results will appear as games finish.
   </div>
+</main>
+</div>
+
+<!-- ═══════════ COFFEE VIEW ═══════════ -->
+<div id="view-coffee" style="display:none">
+<main style="display:flex;align-items:center;justify-content:center;min-height:80vh">
+  <img src="Milan.jpg" alt="Milan" style="max-width:100%;max-height:85vh;border-radius:16px;object-fit:contain">
 </main>
 </div>
 
@@ -521,9 +529,11 @@ function showView(v) {
   document.getElementById('view-home').style.display = v === 'home' ? 'block' : 'none';
   document.getElementById('view-draft').style.display = v === 'draft' ? 'block' : 'none';
   document.getElementById('view-leaderboard').style.display = v === 'leaderboard' ? 'block' : 'none';
+  document.getElementById('view-coffee').style.display = v === 'coffee' ? 'block' : 'none';
   document.getElementById('tab-home').classList.toggle('active', v === 'home');
   document.getElementById('tab-draft').classList.toggle('active', v === 'draft');
   document.getElementById('tab-leaderboard').classList.toggle('active', v === 'leaderboard');
+  document.getElementById('tab-coffee').classList.toggle('active', v === 'coffee');
   if (v === 'draft') {
     showDraftComplete();
   }
