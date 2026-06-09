@@ -258,15 +258,13 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
     <div style="font-size:clamp(1rem,3vw,1.6rem);font-weight:800;color:var(--muted);margin-bottom:8px;letter-spacing:2px">OFFICIAL DRAFT</div>
     <p class="draft-sub">12 participants · 4 pots · One team each · Reveal all pot assignments simultaneously</p>
     <div class="participant-intro-grid" id="intro-names"></div>
-    <button class="btn-start" onclick="startDraft()">🎲 &nbsp; BEGIN DRAFT</button>
-    <button class="btn-reset-sm" id="intro-reset-btn" onclick="clearDraft()" style="display:none">↺ Reset Draft</button>
+    <button class="btn-start" onclick="showView('draft')">📋 &nbsp; VIEW DRAFT RESULTS</button>
   </div>
 
   <!-- ACTIVE CEREMONY -->
   <div id="draft-ceremony">
     <div class="ceremony-header">
       <div class="pot-badge pot-1" id="pot-label-badge">POT 1</div>
-      <button class="btn-reset-sm" onclick="clearDraft()" style="margin:0">↺ Restart</button>
     </div>
     <p class="pot-subtitle" id="pot-subtitle">All 12 participants receive their Pot 1 team simultaneously</p>
 
@@ -287,7 +285,6 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
     </div>
     <div class="draft-results-grid" id="complete-results-grid"></div>
     <button class="btn-save-go" onclick="saveDraftAndShowLeaderboard()">VIEW LEADERBOARD →</button>
-    <button class="btn-reset-sm" onclick="clearDraft()" style="margin-top:12px">↺ Reset Draft</button>
   </div>
 
 </main>
@@ -381,6 +378,88 @@ const TEAM_CODE = {};
 POTS.forEach(pot => pot.teams.forEach(t => { TEAM_CODE[t.n] = t.c; }));
 
 // ─────────────────────────────────────────────────
+//  LOCKED DRAFT — permanent source of truth
+//  All devices load from here; localStorage is never
+//  used as the authority for assignments.
+// ─────────────────────────────────────────────────
+const LOCKED_PARTICIPANTS = [
+  {name:'Liam',    teams:['Canada','Australia','Qatar','Jordan']},
+  {name:'Jackson', teams:['Portugal','Uruguay','Saudi Arabia','Haiti']},
+  {name:'Milan',   teams:['Mexico','Austria','Egypt','Turkey']},
+  {name:'Gawet',   teams:['France','Ecuador','Panama','Ghana']},
+  {name:'Kyle',    teams:['USA','South Korea','Algeria','Bosnia-Herzegovina']},
+  {name:'Dylan',   teams:['Germany','Japan','Scotland','Sweden']},
+  {name:'Nicky J', teams:['Argentina','Iran','Paraguay','DR Congo']},
+  {name:'Monte',   teams:['Spain','Colombia','Ivory Coast','Czech Republic']},
+  {name:'Taylor',  teams:['Belgium','Switzerland','Norway','New Zealand']},
+  {name:'Jeremy',  teams:['Netherlands','Morocco','South Africa','Iraq']},
+  {name:'Connor',  teams:['Brazil','Croatia','Uzbekistan','Curaçao']},
+  {name:'Sean',    teams:['England','Senegal','Tunisia','Cabo Verde']}
+];
+
+const LOCKED_DRAFT = {
+  status:'complete', potIndex:3, potRevealed:true,
+  assignments:[
+    [ // POT 1
+      {participant:'Liam',    team:{n:'Canada',       c:'ca'}},
+      {participant:'Jackson', team:{n:'Portugal',     c:'pt'}},
+      {participant:'Milan',   team:{n:'Mexico',       c:'mx'}},
+      {participant:'Gawet',   team:{n:'France',       c:'fr'}},
+      {participant:'Kyle',    team:{n:'USA',          c:'us'}},
+      {participant:'Dylan',   team:{n:'Germany',      c:'de'}},
+      {participant:'Nicky J', team:{n:'Argentina',    c:'ar'}},
+      {participant:'Monte',   team:{n:'Spain',        c:'es'}},
+      {participant:'Taylor',  team:{n:'Belgium',      c:'be'}},
+      {participant:'Jeremy',  team:{n:'Netherlands',  c:'nl'}},
+      {participant:'Connor',  team:{n:'Brazil',       c:'br'}},
+      {participant:'Sean',    team:{n:'England',      c:'gb-eng'}}
+    ],
+    [ // POT 2
+      {participant:'Liam',    team:{n:'Australia',    c:'au'}},
+      {participant:'Jackson', team:{n:'Uruguay',      c:'uy'}},
+      {participant:'Milan',   team:{n:'Austria',      c:'at'}},
+      {participant:'Gawet',   team:{n:'Ecuador',      c:'ec'}},
+      {participant:'Kyle',    team:{n:'South Korea',  c:'kr'}},
+      {participant:'Dylan',   team:{n:'Japan',        c:'jp'}},
+      {participant:'Nicky J', team:{n:'Iran',         c:'ir'}},
+      {participant:'Monte',   team:{n:'Colombia',     c:'co'}},
+      {participant:'Taylor',  team:{n:'Switzerland',  c:'ch'}},
+      {participant:'Jeremy',  team:{n:'Morocco',      c:'ma'}},
+      {participant:'Connor',  team:{n:'Croatia',      c:'hr'}},
+      {participant:'Sean',    team:{n:'Senegal',      c:'sn'}}
+    ],
+    [ // POT 3
+      {participant:'Liam',    team:{n:'Qatar',          c:'qa'}},
+      {participant:'Jackson', team:{n:'Saudi Arabia',   c:'sa'}},
+      {participant:'Milan',   team:{n:'Egypt',          c:'eg'}},
+      {participant:'Gawet',   team:{n:'Panama',         c:'pa'}},
+      {participant:'Kyle',    team:{n:'Algeria',        c:'dz'}},
+      {participant:'Dylan',   team:{n:'Scotland',       c:'gb-sct'}},
+      {participant:'Nicky J', team:{n:'Paraguay',       c:'py'}},
+      {participant:'Monte',   team:{n:'Ivory Coast',    c:'ci'}},
+      {participant:'Taylor',  team:{n:'Norway',         c:'no'}},
+      {participant:'Jeremy',  team:{n:'South Africa',   c:'za'}},
+      {participant:'Connor',  team:{n:'Uzbekistan',     c:'uz'}},
+      {participant:'Sean',    team:{n:'Tunisia',        c:'tn'}}
+    ],
+    [ // POT 4
+      {participant:'Liam',    team:{n:'Jordan',              c:'jo'}},
+      {participant:'Jackson', team:{n:'Haiti',               c:'ht'}},
+      {participant:'Milan',   team:{n:'Turkey',              c:'tr'}},
+      {participant:'Gawet',   team:{n:'Ghana',               c:'gh'}},
+      {participant:'Kyle',    team:{n:'Bosnia-Herzegovina',  c:'ba'}},
+      {participant:'Dylan',   team:{n:'Sweden',              c:'se'}},
+      {participant:'Nicky J', team:{n:'DR Congo',            c:'cd'}},
+      {participant:'Monte',   team:{n:'Czech Republic',      c:'cz'}},
+      {participant:'Taylor',  team:{n:'New Zealand',         c:'nz'}},
+      {participant:'Jeremy',  team:{n:'Iraq',                c:'iq'}},
+      {participant:'Connor',  team:{n:'Curaçao',             c:'cw'}},
+      {participant:'Sean',    team:{n:'Cabo Verde',          c:'cv'}}
+    ]
+  ]
+};
+
+// ─────────────────────────────────────────────────
 //  DRAFT STATE
 // ─────────────────────────────────────────────────
 const DRAFT_KEY = 'wc2026_draft_v3';
@@ -418,19 +497,10 @@ function shuffle(arr) {
 // ─────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('home-participants').textContent = PARTICIPANTS.join(', ');
-  renderIntroNames();
-
-  const loaded = loadDraftState();
-  if (loaded && draft.status === 'complete') {
-    showView('draft');
-    showDraftComplete();
-    showIntroResetBtn();
-  } else if (loaded && draft.status === 'running') {
-    showView('draft');
-    resumeCeremony();
-  } else {
-    showView('home');
-  }
+  // Always use the locked draft — write to localStorage so leaderboard reads it
+  draft = LOCKED_DRAFT;
+  localStorage.setItem(PARTICIPANTS_KEY, JSON.stringify(LOCKED_PARTICIPANTS));
+  showView('home');
 });
 
 function renderIntroNames() {
@@ -454,6 +524,9 @@ function showView(v) {
   document.getElementById('tab-home').classList.toggle('active', v === 'home');
   document.getElementById('tab-draft').classList.toggle('active', v === 'draft');
   document.getElementById('tab-leaderboard').classList.toggle('active', v === 'leaderboard');
+  if (v === 'draft') {
+    showDraftComplete();
+  }
   if (v === 'leaderboard') {
     loadAndRenderLeaderboard();
     refreshData();
@@ -606,7 +679,6 @@ function showDraftComplete() {
     </div>`;
   }).join('');
 
-  showIntroResetBtn();
 }
 
 function saveDraftAndShowLeaderboard() {
@@ -697,10 +769,7 @@ let allFixtures = [];
 let wcLeagueId = null;
 
 function loadAndRenderLeaderboard() {
-  try {
-    const raw = localStorage.getItem(PARTICIPANTS_KEY);
-    if (raw) lbParticipants = JSON.parse(raw);
-  } catch(e) { lbParticipants = []; }
+  lbParticipants = LOCKED_PARTICIPANTS;
   renderLeaderboard();
 }
 
