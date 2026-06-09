@@ -28,8 +28,27 @@ header{background:linear-gradient(135deg,#0f172a,#1a2f50);border-bottom:2px soli
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* ── Views ── */
+#view-home{display:none}
 #view-leaderboard{display:none}
 main{max-width:1050px;margin:0 auto;padding:24px 16px}
+
+/* ══════════════════════════════════════
+   HOME VIEW
+══════════════════════════════════════ */
+.home-hero{text-align:center;padding:40px 16px 28px}
+.home-title{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;letter-spacing:-1px;margin-bottom:8px;background:linear-gradient(135deg,#f59e0b,#fde68a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-sub{color:var(--muted);font-size:.95rem;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
+.home-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:24px}
+.home-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+.home-card h3{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:10px}
+.home-card p,.home-card li{font-size:.83rem;color:var(--muted);line-height:1.7}
+.home-card ul{padding-left:16px}
+.home-card li{margin-bottom:2px}
+.home-dates{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:flex;gap:32px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
+.home-date-item{text-align:center}
+.home-date-item strong{display:block;font-size:1.05rem;color:var(--accent);font-weight:800}
+.home-date-item span{font-size:.75rem;color:var(--muted)}
+.home-cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
 /* ══════════════════════════════════════
    DRAFT VIEW
@@ -50,66 +69,35 @@ main{max-width:1050px;margin:0 auto;padding:24px 16px}
 
 /* Ceremony */
 #draft-ceremony{display:none}
-.ceremony-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.ceremony-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:10px}
 .pot-badge{padding:6px 18px;border-radius:20px;font-weight:800;font-size:.85rem;letter-spacing:.5px}
 .pot-1{background:rgba(245,158,11,.15);border:1px solid var(--p1);color:var(--p1)}
 .pot-2{background:rgba(16,185,129,.15);border:1px solid var(--p2);color:var(--p2)}
 .pot-3{background:rgba(139,92,246,.15);border:1px solid var(--p3);color:var(--p3)}
 .pot-4{background:rgba(239,68,68,.15);border:1px solid var(--p4);color:var(--p4)}
-.pick-counter{color:var(--muted);font-size:.85rem}
+.pot-subtitle{color:var(--muted);font-size:.82rem;margin-bottom:16px}
 
-.ceremony-layout{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
-@media(max-width:700px){.ceremony-layout{grid-template-columns:1fr}}
+/* Pot cards grid */
+.pot-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.pot-card{perspective:800px}
+.pot-card-inner{position:relative;width:100%;height:120px;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+.pot-card-inner.flipped{transform:rotateY(180deg)}
+.pot-card-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid var(--border);padding:8px;text-align:center}
+.pot-card-front{background:linear-gradient(135deg,#1c2537,#2a3650)}
+.pot-card-back{background:linear-gradient(135deg,#1a3a2a,#1c4a30);border-color:var(--green);transform:rotateY(180deg)}
+.pot-card-icon{font-size:1.3rem;margin-bottom:4px;opacity:.5}
+.pot-card-name{font-size:.78rem;font-weight:700;color:var(--muted)}
+.pot-card-flag{font-size:1.7rem;margin-bottom:2px}
+.pot-card-team{font-size:.75rem;font-weight:800;color:var(--green);line-height:1.2}
+.pot-card-p{font-size:.62rem;color:var(--muted);margin-top:3px}
 
-/* Draw stage */
-.draw-stage{text-align:center}
-.stage-label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px}
-
-/* Flip card */
-.flip-wrap{perspective:1000px;width:280px;height:200px;margin:0 auto 20px}
-.flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1)}
-.flip-inner.flipped{transform:rotateY(180deg)}
-.flip-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid var(--border)}
-.flip-front{background:linear-gradient(135deg,#1c2537,#2a3650);animation:none}
-.flip-front.pulsing{animation:cardpulse 1.2s ease-in-out infinite}
-@keyframes cardpulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4);border-color:var(--border)}50%{box-shadow:0 0 30px 8px rgba(245,158,11,.2);border-color:var(--accent)}}
-.flip-back{background:linear-gradient(135deg,#1a3a2a,#1c4a30);border-color:var(--green);transform:rotateY(180deg)}
-.flip-idle{font-size:.85rem;color:var(--muted)}
-.participant-reveal-name{font-size:1.8rem;font-weight:900;letter-spacing:-0.5px;margin-top:8px}
-.drawing-for{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
-.team-flag-big{font-size:3rem;margin-bottom:4px}
-.team-name-big{font-size:1.5rem;font-weight:900;color:var(--green)}
-.team-assigned-to{font-size:.7rem;color:var(--muted);margin-top:4px}
-
-/* Buttons */
-.draw-btns{display:flex;justify-content:center;gap:10px}
-.btn-draw{background:var(--accent);color:#000;border:none;padding:13px 36px;border-radius:10px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s}
-.btn-draw:hover{transform:scale(1.04)}
-.btn-draw:disabled{opacity:.4;cursor:default;transform:none}
-.btn-reveal{background:var(--green);color:#fff;border:none;padding:13px 36px;border-radius:10px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s;display:none}
-.btn-reveal:hover{transform:scale(1.04)}
-.btn-next-pot{background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:10px 28px;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;display:none}
-.btn-next-pot:hover{border-color:var(--accent);color:var(--accent)}
-
-/* Side grid */
-.side-grid{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.side-grid-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--border);background:var(--surface2)}
-.p-row{display:flex;align-items:center;padding:8px 12px;border-top:1px solid var(--border);gap:8px;transition:background .3s}
-.p-row:first-of-type{border-top:none}
-.p-row.just-assigned{background:rgba(16,185,129,.1);animation:rowFlash .8s ease}
-@keyframes rowFlash{0%{background:rgba(16,185,129,.35)}100%{background:rgba(16,185,129,.1)}}
-.p-row-name{font-size:.8rem;font-weight:700;min-width:60px}
-.p-row-teams{display:flex;gap:4px;flex-wrap:wrap}
-.team-pill{font-size:.65rem;padding:2px 6px;border-radius:4px;white-space:nowrap}
-.team-pill.p1{background:rgba(245,158,11,.15);color:var(--p1);border:1px solid rgba(245,158,11,.3)}
-.team-pill.p2{background:rgba(16,185,129,.12);color:var(--p2);border:1px solid rgba(16,185,129,.3)}
-.team-pill.p3{background:rgba(139,92,246,.12);color:var(--p3);border:1px solid rgba(139,92,246,.3)}
-.team-pill.p4{background:rgba(239,68,68,.12);color:var(--p4);border:1px solid rgba(239,68,68,.3)}
-
-/* Pot complete banner */
-#pot-complete-banner{display:none;text-align:center;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:20px}
-#pot-complete-banner h3{font-size:1.4rem;margin-bottom:6px}
-#pot-complete-banner p{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+/* Ceremony action buttons */
+.ceremony-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;border:none;padding:13px 36px;border-radius:10px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s}
+.btn-primary:hover{transform:scale(1.04)}
+.btn-primary:disabled{opacity:.4;cursor:default;transform:none}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:12px 28px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
 
 /* Draft complete */
 #draft-complete-view{display:none;padding:32px 0}
@@ -131,9 +119,6 @@ main{max-width:1050px;margin:0 auto;padding:24px 16px}
 /* ══════════════════════════════════════
    LEADERBOARD VIEW
 ══════════════════════════════════════ */
-.lb-info{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
-.lb-info-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:.78rem;color:var(--muted)}
-.lb-info-box strong{color:var(--text);display:block;font-size:1rem}
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px}
 table{width:100%;border-collapse:collapse}
 thead tr{background:var(--surface2)}
@@ -190,7 +175,8 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 <header>
   <div class="h-title">⚽ World Cup 2026 <span>Draft & Leaderboard</span></div>
   <nav class="h-nav">
-    <button class="tab-btn active" id="tab-draft" onclick="showView('draft')">🎲 Draft</button>
+    <button class="tab-btn" id="tab-home" onclick="showView('home')">🏠 Home</button>
+    <button class="tab-btn" id="tab-draft" onclick="showView('draft')">🎲 Draft</button>
     <button class="tab-btn" id="tab-leaderboard" onclick="showView('leaderboard')">🏆 Leaderboard</button>
   </nav>
   <div class="h-status">
@@ -199,15 +185,77 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   </div>
 </header>
 
+<!-- ═══════════ HOME VIEW ═══════════ -->
+<div id="view-home">
+<main>
+  <div class="home-hero">
+    <div class="home-title">⚽ World Cup 2026</div>
+    <div style="font-size:clamp(.9rem,2.5vw,1.2rem);font-weight:800;color:var(--muted);letter-spacing:2px;margin-bottom:12px">DRAFT POOL</div>
+    <p class="home-sub">12 players. 48 teams. One winner. Track your teams through the entire tournament and see who comes out on top.</p>
+  </div>
+
+  <div class="home-dates">
+    <div class="home-date-item"><strong>June 11</strong><span>Group stage begins</span></div>
+    <div class="home-date-item"><strong>48 Teams</strong><span>12 groups of 4</span></div>
+    <div class="home-date-item"><strong>July 19</strong><span>Final</span></div>
+    <div class="home-date-item"><strong>12 Players</strong><span>4 teams each</span></div>
+  </div>
+
+  <div class="home-cards">
+    <div class="home-card">
+      <h3>How the Draft Works</h3>
+      <ul>
+        <li>48 teams are split into 4 pots of 12</li>
+        <li>Each player receives one team from each pot</li>
+        <li>Teams are assigned randomly via the draft ceremony</li>
+        <li>All pot assignments are revealed simultaneously — everyone sees their Pot 1 team at the same moment, then Pot 2, and so on</li>
+      </ul>
+    </div>
+    <div class="home-card">
+      <h3>Scoring System</h3>
+      <ul>
+        <li>Group stage win: <strong style="color:var(--accent)">+3 pts</strong></li>
+        <li>Group stage draw: <strong style="color:var(--accent)">+1 pt</strong></li>
+        <li>Knockout win: <strong style="color:var(--accent)">+3 pts</strong></li>
+        <li>Reach Round of 32: <strong style="color:var(--green)">+1 bonus</strong></li>
+        <li>Reach Round of 16: <strong style="color:var(--green)">+1 bonus</strong></li>
+        <li>Reach Quarter-finals: <strong style="color:var(--green)">+2 bonus</strong></li>
+        <li>Reach Semi-finals: <strong style="color:var(--green)">+2 bonus</strong></li>
+        <li>Reach the Final: <strong style="color:var(--green)">+3 bonus</strong></li>
+      </ul>
+    </div>
+    <div class="home-card">
+      <h3>The Pots</h3>
+      <ul>
+        <li><strong style="color:var(--p1)">Pot 1</strong> — Top seeds &amp; hosts (Spain, Argentina, USA…)</li>
+        <li><strong style="color:var(--p2)">Pot 2</strong> — Strong contenders (Croatia, Japan, Colombia…)</li>
+        <li><strong style="color:var(--p3)">Pot 3</strong> — Underdogs (Norway, Scotland, Egypt…)</li>
+        <li><strong style="color:var(--p4)">Pot 4</strong> — Dark horses (Turkey, Ghana, Sweden…)</li>
+      </ul>
+    </div>
+    <div class="home-card">
+      <h3>Participants</h3>
+      <p style="margin-bottom:8px">12 players competing this tournament:</p>
+      <p id="home-participants" style="color:var(--text);line-height:1.8"></p>
+    </div>
+  </div>
+
+  <div class="home-cta">
+    <button class="btn-start" onclick="showView('draft')">🎲 Go to Draft</button>
+    <button class="btn-save-go" style="margin:0" onclick="showView('leaderboard')">🏆 View Leaderboard</button>
+  </div>
+</main>
+</div>
+
 <!-- ═══════════ DRAFT VIEW ═══════════ -->
-<div id="view-draft">
+<div id="view-draft" style="display:none">
 <main>
 
   <!-- INTRO -->
   <div id="draft-intro">
     <div class="draft-hero">⚽ WORLD CUP 2026</div>
     <div style="font-size:clamp(1rem,3vw,1.6rem);font-weight:800;color:var(--muted);margin-bottom:8px;letter-spacing:2px">OFFICIAL DRAFT</div>
-    <p class="draft-sub">12 participants · 4 pots · One team each · Let the draw begin</p>
+    <p class="draft-sub">12 participants · 4 pots · One team each · Reveal all pot assignments simultaneously</p>
     <div class="participant-intro-grid" id="intro-names"></div>
     <button class="btn-start" onclick="startDraft()">🎲 &nbsp; BEGIN DRAFT</button>
     <button class="btn-reset-sm" id="intro-reset-btn" onclick="clearDraft()" style="display:none">↺ Reset Draft</button>
@@ -216,54 +264,17 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   <!-- ACTIVE CEREMONY -->
   <div id="draft-ceremony">
     <div class="ceremony-header">
-      <div>
-        <div class="pot-badge pot-1" id="pot-label-badge">POT 1</div>
-      </div>
-      <div class="pick-counter" id="pick-counter">Pick 1 of 12</div>
+      <div class="pot-badge pot-1" id="pot-label-badge">POT 1</div>
       <button class="btn-reset-sm" onclick="clearDraft()" style="margin:0">↺ Restart</button>
     </div>
+    <p class="pot-subtitle" id="pot-subtitle">All 12 participants receive their Pot 1 team simultaneously</p>
 
-    <!-- Pot complete banner -->
-    <div id="pot-complete-banner">
-      <h3 id="pot-complete-title">POT 1 COMPLETE 🎉</h3>
-      <p id="pot-complete-sub">All 12 teams assigned. Ready for the next pot.</p>
-      <button class="btn-draw" id="btn-next-pot" onclick="advancePot()" style="display:inline-block">NEXT POT →</button>
-    </div>
+    <div class="pot-cards-grid" id="pot-cards-grid"></div>
 
-    <div class="ceremony-layout">
-      <!-- Stage -->
-      <div class="draw-stage">
-        <div class="stage-label" id="stage-label">Press DRAW to select the next participant</div>
-
-        <div class="flip-wrap">
-          <div class="flip-inner" id="flip-inner">
-            <div class="flip-face flip-front" id="flip-front">
-              <span class="flip-idle" id="flip-idle-text">🎱 Ready to draw</span>
-              <div id="flip-front-content" style="display:none">
-                <div class="drawing-for">DRAWING FOR</div>
-                <div class="participant-reveal-name" id="reveal-name-text">—</div>
-              </div>
-            </div>
-            <div class="flip-face flip-back" id="flip-back">
-              <div class="team-flag-big" id="reveal-flag">🏳️</div>
-              <div class="team-name-big" id="reveal-team-name">—</div>
-              <div class="team-assigned-to" id="reveal-assigned-to">—</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="draw-btns">
-          <button class="btn-draw" id="btn-draw" onclick="drawNext()">🎱 DRAW</button>
-          <button class="btn-reveal" id="btn-reveal" onclick="revealTeam()">✨ REVEAL</button>
-          <button class="btn-next-pot" id="btn-next-in-pot" onclick="nextInPot()">NEXT PICK →</button>
-        </div>
-      </div>
-
-      <!-- Side participant grid -->
-      <div class="side-grid">
-        <div class="side-grid-title">PARTICIPANT TEAMS</div>
-        <div id="side-grid-rows"></div>
-      </div>
+    <div class="ceremony-actions">
+      <button class="btn-primary" id="btn-reveal-pot" onclick="revealCurrentPot()">✨ REVEAL POT 1</button>
+      <button class="btn-primary" id="btn-advance-pot" onclick="advancePot()" style="display:none">NEXT POT →</button>
+      <button class="btn-primary" id="btn-finish-draft" onclick="finishDraft()" style="display:none">SEE RESULTS 🏆</button>
     </div>
   </div>
 
@@ -362,16 +373,14 @@ const POTS = [
 // ─────────────────────────────────────────────────
 //  DRAFT STATE
 // ─────────────────────────────────────────────────
-const DRAFT_KEY = 'wc2026_draft_v2';
+const DRAFT_KEY = 'wc2026_draft_v3';
 const PARTICIPANTS_KEY = 'wc2026_participants';
 
 let draft = {
-  status: 'idle',      // idle | running | complete
-  potIndex: 0,         // 0-3 current pot
-  pickIndex: 0,        // 0-11 current pick in pot
-  assignments: null,   // [pot][pick] = {participant, team}
-  currentPick: null,   // {participant, team} for the current draw
-  drawState: 'ready'   // ready | drawn | revealed
+  status: 'idle',       // idle | running | complete
+  potIndex: 0,          // 0-3 current pot
+  potRevealed: false,   // whether current pot has been flipped
+  assignments: null     // [pot][pick] = {participant, team}
 };
 
 function loadDraftState() {
@@ -398,18 +407,19 @@ function shuffle(arr) {
 //  INIT
 // ─────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('home-participants').textContent = PARTICIPANTS.join(', ');
   renderIntroNames();
-  renderSideGrid();
 
   const loaded = loadDraftState();
   if (loaded && draft.status === 'complete') {
+    showView('draft');
     showDraftComplete();
     showIntroResetBtn();
   } else if (loaded && draft.status === 'running') {
     showView('draft');
     resumeCeremony();
   } else {
-    showView('draft');
+    showView('home');
   }
 });
 
@@ -428,8 +438,10 @@ function showIntroResetBtn() {
 //  VIEW SWITCHING
 // ─────────────────────────────────────────────────
 function showView(v) {
+  document.getElementById('view-home').style.display = v === 'home' ? '' : 'none';
   document.getElementById('view-draft').style.display = v === 'draft' ? '' : 'none';
   document.getElementById('view-leaderboard').style.display = v === 'leaderboard' ? '' : 'none';
+  document.getElementById('tab-home').classList.toggle('active', v === 'home');
   document.getElementById('tab-draft').classList.toggle('active', v === 'draft');
   document.getElementById('tab-leaderboard').classList.toggle('active', v === 'leaderboard');
   if (v === 'leaderboard') {
@@ -442,21 +454,13 @@ function showView(v) {
 //  DRAFT LOGIC
 // ─────────────────────────────────────────────────
 function startDraft() {
-  // Pre-compute ALL assignments for all 4 pots
   const assignments = POTS.map(pot => {
     const participantOrder = shuffle([...PARTICIPANTS]);
     const teamOrder = shuffle([...pot.teams]);
     return participantOrder.map((p, i) => ({ participant: p, team: teamOrder[i] }));
   });
 
-  draft = {
-    status: 'running',
-    potIndex: 0,
-    pickIndex: 0,
-    assignments,
-    currentPick: null,
-    drawState: 'ready'
-  };
+  draft = { status:'running', potIndex:0, potRevealed:false, assignments };
   saveDraftState();
   showCeremony();
 }
@@ -464,144 +468,107 @@ function startDraft() {
 function resumeCeremony() {
   if (draft.status === 'complete') { showDraftComplete(); return; }
   showCeremony();
-  updateCeremonyUI();
 }
 
 function showCeremony() {
   document.getElementById('draft-intro').style.display = 'none';
   document.getElementById('draft-complete-view').style.display = 'none';
   document.getElementById('draft-ceremony').style.display = '';
-  updateCeremonyUI();
+  renderPotReveal();
 }
 
-function updateCeremonyUI() {
+function renderPotReveal() {
   const pot = POTS[draft.potIndex];
+  const picks = draft.assignments[draft.potIndex];
 
-  // Pot badge
+  // Update pot badge
   const badge = document.getElementById('pot-label-badge');
   badge.textContent = pot.name;
   badge.className = 'pot-badge ' + pot.cls;
+  document.getElementById('pot-subtitle').textContent =
+    `All 12 participants receive their ${pot.name} team simultaneously`;
 
-  // Pick counter
-  const done = draft.potIndex * 12 + draft.pickIndex;
-  const total = 48;
-  document.getElementById('pick-counter').textContent = `Pick ${draft.pickIndex + 1} of 12 · Pot ${draft.potIndex + 1} of 4`;
+  // Build cards — show already flipped if this pot was already revealed
+  const grid = document.getElementById('pot-cards-grid');
+  grid.innerHTML = picks.map((pick, i) => `
+    <div class="pot-card">
+      <div class="pot-card-inner${draft.potRevealed ? ' flipped' : ''}" id="pot-card-${i}">
+        <div class="pot-card-face pot-card-front">
+          <div class="pot-card-icon">🎱</div>
+          <div class="pot-card-name">${esc(pick.participant)}</div>
+        </div>
+        <div class="pot-card-face pot-card-back">
+          <div class="pot-card-flag">${pick.team.f}</div>
+          <div class="pot-card-team">${esc(pick.team.n)}</div>
+          <div class="pot-card-p">${esc(pick.participant)}</div>
+        </div>
+      </div>
+    </div>`).join('');
 
-  // Pot-complete banner
-  const isAtPotEnd = draft.pickIndex >= 12;
-  document.getElementById('pot-complete-banner').style.display = 'none';
+  // Button state
+  const revealBtn = document.getElementById('btn-reveal-pot');
+  const advanceBtn = document.getElementById('btn-advance-pot');
+  const finishBtn = document.getElementById('btn-finish-draft');
 
-  // Card state
-  resetCard();
-  renderSideGrid();
-
-  document.getElementById('stage-label').textContent = 'Press DRAW to select the next participant';
-  document.getElementById('btn-draw').style.display = '';
-  document.getElementById('btn-draw').disabled = false;
-  document.getElementById('btn-reveal').style.display = 'none';
-  document.getElementById('btn-next-in-pot').style.display = 'none';
-}
-
-function drawNext() {
-  if (draft.pickIndex >= 12) return;
-  const pick = draft.assignments[draft.potIndex][draft.pickIndex];
-  draft.currentPick = pick;
-  draft.drawState = 'drawn';
-
-  // Show front card with participant name
-  const flipFront = document.getElementById('flip-front');
-  document.getElementById('flip-idle-text').style.display = 'none';
-  document.getElementById('flip-front-content').style.display = '';
-  document.getElementById('reveal-name-text').textContent = pick.participant.toUpperCase();
-  flipFront.classList.add('pulsing');
-
-  document.getElementById('stage-label').textContent = `${pick.participant} is up — who did they get?`;
-  document.getElementById('btn-draw').style.display = 'none';
-  document.getElementById('btn-reveal').style.display = '';
-}
-
-function revealTeam() {
-  if (!draft.currentPick) return;
-  const pick = draft.currentPick;
-
-  // Flip card
-  document.getElementById('flip-front').classList.remove('pulsing');
-  document.getElementById('reveal-flag').textContent = pick.team.f;
-  document.getElementById('reveal-team-name').textContent = pick.team.n;
-  document.getElementById('reveal-assigned-to').textContent = pick.participant;
-  document.getElementById('flip-inner').classList.add('flipped');
-
-  document.getElementById('stage-label').textContent = `${pick.participant} gets ${pick.team.n} ${pick.team.f}`;
-
-  draft.drawState = 'revealed';
-  draft.pickIndex++;
-  saveDraftState();
-
-  // Confetti!
-  launchConfetti();
-
-  // Update side grid
-  renderSideGrid(pick.participant);
-
-  document.getElementById('btn-reveal').style.display = 'none';
-
-  // Decide next button
-  setTimeout(() => {
-    if (draft.pickIndex >= 12) {
-      // Pot done
-      showPotComplete();
+  if (draft.potRevealed) {
+    revealBtn.style.display = 'none';
+    if (draft.potIndex < 3) {
+      advanceBtn.textContent = `NEXT POT → (${POTS[draft.potIndex + 1].name})`;
+      advanceBtn.style.display = '';
+      finishBtn.style.display = 'none';
     } else {
-      document.getElementById('btn-next-in-pot').style.display = '';
+      advanceBtn.style.display = 'none';
+      finishBtn.style.display = '';
     }
-  }, 1200);
-}
-
-function nextInPot() {
-  draft.currentPick = null;
-  draft.drawState = 'ready';
-  resetCard();
-  document.getElementById('btn-next-in-pot').style.display = 'none';
-  document.getElementById('btn-draw').style.display = '';
-  document.getElementById('btn-reveal').style.display = 'none';
-  document.getElementById('stage-label').textContent = 'Press DRAW to select the next participant';
-}
-
-function showPotComplete() {
-  const pot = POTS[draft.potIndex];
-  document.getElementById('pot-complete-title').textContent = `${pot.name} COMPLETE! 🎉`;
-  if (draft.potIndex < 3) {
-    document.getElementById('pot-complete-sub').textContent = `All 12 picks done. Ready to draw from ${POTS[draft.potIndex + 1].name}.`;
   } else {
-    document.getElementById('pot-complete-sub').textContent = 'All 4 pots drawn! The draft is complete.';
-    document.getElementById('btn-next-pot').textContent = 'SEE RESULTS 🏆';
+    revealBtn.textContent = `✨ REVEAL ${pot.name}`;
+    revealBtn.disabled = false;
+    revealBtn.style.display = '';
+    advanceBtn.style.display = 'none';
+    finishBtn.style.display = 'none';
   }
-  document.getElementById('pot-complete-banner').style.display = '';
-  document.getElementById('btn-next-in-pot').style.display = 'none';
+}
+
+function revealCurrentPot() {
+  const picks = draft.assignments[draft.potIndex];
+  document.getElementById('btn-reveal-pot').disabled = true;
+
+  // Stagger card flips 120ms apart
+  picks.forEach((_, i) => {
+    setTimeout(() => {
+      const el = document.getElementById(`pot-card-${i}`);
+      if (el) el.classList.add('flipped');
+    }, i * 120);
+  });
+
+  // After last card flips, show next button and fire confetti
+  const totalDelay = (picks.length - 1) * 120 + 700;
+  setTimeout(() => {
+    draft.potRevealed = true;
+    saveDraftState();
+    launchConfetti();
+    document.getElementById('btn-reveal-pot').style.display = 'none';
+    if (draft.potIndex < 3) {
+      const advanceBtn = document.getElementById('btn-advance-pot');
+      advanceBtn.textContent = `NEXT POT → (${POTS[draft.potIndex + 1].name})`;
+      advanceBtn.style.display = '';
+    } else {
+      document.getElementById('btn-finish-draft').style.display = '';
+    }
+  }, totalDelay);
 }
 
 function advancePot() {
-  if (draft.potIndex >= 3) {
-    // Complete
-    draft.status = 'complete';
-    saveDraftState();
-    showDraftComplete();
-    return;
-  }
   draft.potIndex++;
-  draft.pickIndex = 0;
-  draft.currentPick = null;
-  draft.drawState = 'ready';
+  draft.potRevealed = false;
   saveDraftState();
-  document.getElementById('pot-complete-banner').style.display = 'none';
-  updateCeremonyUI();
+  renderPotReveal();
 }
 
-function resetCard() {
-  const inner = document.getElementById('flip-inner');
-  inner.classList.remove('flipped');
-  document.getElementById('flip-front').classList.remove('pulsing');
-  document.getElementById('flip-idle-text').style.display = '';
-  document.getElementById('flip-front-content').style.display = 'none';
+function finishDraft() {
+  draft.status = 'complete';
+  saveDraftState();
+  showDraftComplete();
 }
 
 function showDraftComplete() {
@@ -609,7 +576,6 @@ function showDraftComplete() {
   document.getElementById('draft-ceremony').style.display = 'none';
   document.getElementById('draft-complete-view').style.display = '';
 
-  // Build results grid
   const grid = document.getElementById('complete-results-grid');
   grid.innerHTML = PARTICIPANTS.map(name => {
     const teams = POTS.map((pot, pi) => {
@@ -634,7 +600,6 @@ function showDraftComplete() {
 }
 
 function saveDraftAndShowLeaderboard() {
-  // Convert draft.assignments into the participants array format for the leaderboard
   const participants = PARTICIPANTS.map(name => {
     const teams = POTS.map((pot, pi) => {
       const pick = draft.assignments[pi].find(a => a.participant === name);
@@ -650,49 +615,11 @@ function clearDraft() {
   if (!confirm('Reset the entire draft? All picks will be lost.')) return;
   localStorage.removeItem(DRAFT_KEY);
   localStorage.removeItem(PARTICIPANTS_KEY);
-  draft = { status:'idle', potIndex:0, pickIndex:0, assignments:null, currentPick:null, drawState:'ready' };
+  draft = { status:'idle', potIndex:0, potRevealed:false, assignments:null };
   document.getElementById('draft-intro').style.display = '';
   document.getElementById('draft-ceremony').style.display = 'none';
   document.getElementById('draft-complete-view').style.display = 'none';
   document.getElementById('intro-reset-btn').style.display = 'none';
-  renderSideGrid();
-}
-
-// ─────────────────────────────────────────────────
-//  SIDE GRID
-// ─────────────────────────────────────────────────
-function renderSideGrid(justAssigned) {
-  const container = document.getElementById('side-grid-rows');
-  if (!draft.assignments) {
-    container.innerHTML = PARTICIPANTS.map(name =>
-      `<div class="p-row"><span class="p-row-name">${esc(name)}</span><div class="p-row-teams"><span style="font-size:.7rem;color:var(--muted)">—</span></div></div>`
-    ).join('');
-    return;
-  }
-
-  container.innerHTML = PARTICIPANTS.map(name => {
-    const pills = POTS.map((pot, pi) => {
-      if (pi > draft.potIndex || (pi === draft.potIndex && !hasBeenPicked(name, pi))) return '';
-      const pick = draft.assignments[pi].find(a => a.participant === name);
-      if (!pick) return '';
-      return `<span class="team-pill p${pi+1}">${pick.team.f} ${pick.team.n}</span>`;
-    }).join('');
-
-    const isJust = name === justAssigned;
-    return `<div class="p-row${isJust?' just-assigned':''}"><span class="p-row-name">${esc(name)}</span><div class="p-row-teams">${pills || '<span style="font-size:.7rem;color:var(--muted)">—</span>'}</div></div>`;
-  }).join('');
-}
-
-function hasBeenPicked(name, potIndex) {
-  if (!draft.assignments) return false;
-  if (potIndex < draft.potIndex) return true;
-  if (potIndex === draft.potIndex) {
-    // Check if they appear in picks already done
-    for (let i = 0; i < draft.pickIndex; i++) {
-      if (draft.assignments[potIndex][i]?.participant === name) return true;
-    }
-  }
-  return false;
 }
 
 // ─────────────────────────────────────────────────
@@ -710,7 +637,7 @@ function launchConfetti() {
   canvas.height = window.innerHeight;
   const colors = ['#f59e0b','#10b981','#8b5cf6','#ef4444','#60a5fa','#fbbf24','#34d399'];
   confettiParticles = [];
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 150; i++) {
     confettiParticles.push({
       x: Math.random() * canvas.width,
       y: -10 - Math.random() * 100,
@@ -733,11 +660,7 @@ function animateConfetti() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   confettiParticles = confettiParticles.filter(p => p.y < canvas.height + 20 && p.life > 0);
   confettiParticles.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-    p.vy += 0.08;
-    p.rot += p.rotV;
-    p.life -= 0.008;
+    p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.rot += p.rotV; p.life -= 0.008;
     ctx.save();
     ctx.globalAlpha = Math.max(0, p.life);
     ctx.translate(p.x, p.y);
@@ -846,8 +769,7 @@ function scoreTeam(teamName) {
   if (played.has('qf'))  bonus+=S.bonusQF;
   if (played.has('sf'))  bonus+=S.bonusSF;
   if (played.has('final')) bonus+=S.bonusFinal;
-  const elim = results.length>0 && results[results.length-1].outcome==='loss' && isKO(results[results.length-1].st);
-  return {mp, bonus, total:mp+bonus, results, played, elim};
+  return {mp, bonus, total:mp+bonus, results, played};
 }
 
 function renderLeaderboard() {
@@ -921,7 +843,6 @@ function showApiError(msg) { const e=document.getElementById('api-error'); e.tex
 function clearApiError() { document.getElementById('api-error').style.display='none'; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// Auto-refresh leaderboard every hour
 setInterval(()=>{ if(document.getElementById('view-leaderboard').style.display!=='none') refreshData(); }, 3600000);
 </script>
 </body>
