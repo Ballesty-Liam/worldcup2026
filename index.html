@@ -473,7 +473,7 @@ function resumeCeremony() {
 function showCeremony() {
   document.getElementById('draft-intro').style.display = 'none';
   document.getElementById('draft-complete-view').style.display = 'none';
-  document.getElementById('draft-ceremony').style.display = '';
+  document.getElementById('draft-ceremony').style.display = 'block';
   renderPotReveal();
 }
 
@@ -574,7 +574,7 @@ function finishDraft() {
 function showDraftComplete() {
   document.getElementById('draft-intro').style.display = 'none';
   document.getElementById('draft-ceremony').style.display = 'none';
-  document.getElementById('draft-complete-view').style.display = '';
+  document.getElementById('draft-complete-view').style.display = 'block';
 
   const grid = document.getElementById('complete-results-grid');
   grid.innerHTML = PARTICIPANTS.map(name => {
