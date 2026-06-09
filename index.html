@@ -438,9 +438,9 @@ function showIntroResetBtn() {
 //  VIEW SWITCHING
 // ─────────────────────────────────────────────────
 function showView(v) {
-  document.getElementById('view-home').style.display = v === 'home' ? '' : 'none';
-  document.getElementById('view-draft').style.display = v === 'draft' ? '' : 'none';
-  document.getElementById('view-leaderboard').style.display = v === 'leaderboard' ? '' : 'none';
+  document.getElementById('view-home').style.display = v === 'home' ? 'block' : 'none';
+  document.getElementById('view-draft').style.display = v === 'draft' ? 'block' : 'none';
+  document.getElementById('view-leaderboard').style.display = v === 'leaderboard' ? 'block' : 'none';
   document.getElementById('tab-home').classList.toggle('active', v === 'home');
   document.getElementById('tab-draft').classList.toggle('active', v === 'draft');
   document.getElementById('tab-leaderboard').classList.toggle('active', v === 'leaderboard');
