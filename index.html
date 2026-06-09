@@ -178,6 +178,7 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
     <button class="tab-btn" id="tab-home" onclick="showView('home')">🏠 Home</button>
     <button class="tab-btn" id="tab-draft" onclick="showView('draft')">🎲 Draft</button>
     <button class="tab-btn" id="tab-leaderboard" onclick="showView('leaderboard')">🏆 Leaderboard</button>
+    <button class="tab-btn" style="border-color:rgba(239,68,68,.4);color:var(--red)" onclick="reportIssue()">⚠️ Report Issue</button>
   </nav>
   <div class="h-status">
     <div class="dot blink" id="status-dot"></div>
@@ -342,33 +343,42 @@ const PARTICIPANTS = ['Liam','Jackson','Milan','Gawet','Kyle','Dylan','Nicky J',
 const POTS = [
   { name:'POT 1', cls:'pot-1', color:'#f59e0b', dotColor:'#f59e0b',
     teams:[
-      {n:'Spain',f:'🇪🇸'},{n:'Argentina',f:'🇦🇷'},{n:'France',f:'🇫🇷'},
-      {n:'England',f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},{n:'Brazil',f:'🇧🇷'},{n:'Portugal',f:'🇵🇹'},
-      {n:'Netherlands',f:'🇳🇱'},{n:'Belgium',f:'🇧🇪'},{n:'Germany',f:'🇩🇪'},
-      {n:'USA',f:'🇺🇸'},{n:'Mexico',f:'🇲🇽'},{n:'Canada',f:'🇨🇦'}
+      {n:'Spain',c:'es'},{n:'Argentina',c:'ar'},{n:'France',c:'fr'},
+      {n:'England',c:'gb-eng'},{n:'Brazil',c:'br'},{n:'Portugal',c:'pt'},
+      {n:'Netherlands',c:'nl'},{n:'Belgium',c:'be'},{n:'Germany',c:'de'},
+      {n:'USA',c:'us'},{n:'Mexico',c:'mx'},{n:'Canada',c:'ca'}
     ]},
   { name:'POT 2', cls:'pot-2', color:'#10b981', dotColor:'#10b981',
     teams:[
-      {n:'Croatia',f:'🇭🇷'},{n:'Morocco',f:'🇲🇦'},{n:'Colombia',f:'🇨🇴'},
-      {n:'Uruguay',f:'🇺🇾'},{n:'Switzerland',f:'🇨🇭'},{n:'Japan',f:'🇯🇵'},
-      {n:'Senegal',f:'🇸🇳'},{n:'Iran',f:'🇮🇷'},{n:'South Korea',f:'🇰🇷'},
-      {n:'Ecuador',f:'🇪🇨'},{n:'Austria',f:'🇦🇹'},{n:'Australia',f:'🇦🇺'}
+      {n:'Croatia',c:'hr'},{n:'Morocco',c:'ma'},{n:'Colombia',c:'co'},
+      {n:'Uruguay',c:'uy'},{n:'Switzerland',c:'ch'},{n:'Japan',c:'jp'},
+      {n:'Senegal',c:'sn'},{n:'Iran',c:'ir'},{n:'South Korea',c:'kr'},
+      {n:'Ecuador',c:'ec'},{n:'Austria',c:'at'},{n:'Australia',c:'au'}
     ]},
   { name:'POT 3', cls:'pot-3', color:'#8b5cf6', dotColor:'#8b5cf6',
     teams:[
-      {n:'Norway',f:'🇳🇴'},{n:'Panama',f:'🇵🇦'},{n:'Egypt',f:'🇪🇬'},
-      {n:'Algeria',f:'🇩🇿'},{n:'Scotland',f:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'},{n:'Paraguay',f:'🇵🇾'},
-      {n:'Tunisia',f:'🇹🇳'},{n:'Ivory Coast',f:'🇨🇮'},{n:'Uzbekistan',f:'🇺🇿'},
-      {n:'Qatar',f:'🇶🇦'},{n:'Saudi Arabia',f:'🇸🇦'},{n:'South Africa',f:'🇿🇦'}
+      {n:'Norway',c:'no'},{n:'Panama',c:'pa'},{n:'Egypt',c:'eg'},
+      {n:'Algeria',c:'dz'},{n:'Scotland',c:'gb-sct'},{n:'Paraguay',c:'py'},
+      {n:'Tunisia',c:'tn'},{n:'Ivory Coast',c:'ci'},{n:'Uzbekistan',c:'uz'},
+      {n:'Qatar',c:'qa'},{n:'Saudi Arabia',c:'sa'},{n:'South Africa',c:'za'}
     ]},
   { name:'POT 4', cls:'pot-4', color:'#ef4444', dotColor:'#ef4444',
     teams:[
-      {n:'Jordan',f:'🇯🇴'},{n:'Cabo Verde',f:'🇨🇻'},{n:'Ghana',f:'🇬🇭'},
-      {n:'Curaçao',f:'🇨🇼'},{n:'Haiti',f:'🇭🇹'},{n:'New Zealand',f:'🇳🇿'},
-      {n:'Czech Republic',f:'🇨🇿'},{n:'Bosnia-Herzegovina',f:'🇧🇦'},
-      {n:'Turkey',f:'🇹🇷'},{n:'Sweden',f:'🇸🇪'},{n:'Iraq',f:'🇮🇶'},{n:'DR Congo',f:'🇨🇩'}
+      {n:'Jordan',c:'jo'},{n:'Cabo Verde',c:'cv'},{n:'Ghana',c:'gh'},
+      {n:'Curaçao',c:'cw'},{n:'Haiti',c:'ht'},{n:'New Zealand',c:'nz'},
+      {n:'Czech Republic',c:'cz'},{n:'Bosnia-Herzegovina',c:'ba'},
+      {n:'Turkey',c:'tr'},{n:'Sweden',c:'se'},{n:'Iraq',c:'iq'},{n:'DR Congo',c:'cd'}
     ]}
 ];
+
+// Flag image helper — uses flagcdn.com
+function flagImg(code, h) {
+  const w = h <= 24 ? 20 : 40;
+  return `<img src="https://flagcdn.com/w${w}/${code}.png" alt="" height="${h}" style="border-radius:2px;vertical-align:middle;display:inline-block" loading="lazy">`;
+}
+// Lookup map: team name → ISO code
+const TEAM_CODE = {};
+POTS.forEach(pot => pot.teams.forEach(t => { TEAM_CODE[t.n] = t.c; }));
 
 // ─────────────────────────────────────────────────
 //  DRAFT STATE
@@ -498,7 +508,7 @@ function renderPotReveal() {
           <div class="pot-card-name">${esc(pick.participant)}</div>
         </div>
         <div class="pot-card-face pot-card-back">
-          <div class="pot-card-flag">${pick.team.f}</div>
+          <div class="pot-card-flag">${flagImg(pick.team.c, 36)}</div>
           <div class="pot-card-team">${esc(pick.team.n)}</div>
           <div class="pot-card-p">${esc(pick.participant)}</div>
         </div>
@@ -588,7 +598,7 @@ function showDraftComplete() {
       <div class="result-teams">
         ${teams.map(t => `
           <div class="result-team">
-            <span class="result-flag">${t.team.f}</span>
+            <span class="result-flag">${flagImg(t.team.c, 20)}</span>
             <span class="result-tname">${esc(t.team.n)}</span>
             <span class="result-pot-dot" style="background:${POTS[t.potIndex].dotColor}"></span>
           </div>`).join('')}
@@ -712,6 +722,12 @@ async function findWcLeague() {
 
 async function refreshData() {
   if (lbParticipants.length === 0) return;
+  if (new Date() < new Date(WC_START)) {
+    setStatus('ready', 'Tournament starts June 11');
+    clearApiError();
+    renderLeaderboard();
+    return;
+  }
   setStatus('loading', 'Fetching scores...');
   try {
     const id = await findWcLeague();
@@ -721,8 +737,8 @@ async function refreshData() {
     setStatus('live', `${allFixtures.filter(f=>f.event_status==='Finished').length} results loaded`);
     renderLeaderboard();
   } catch(err) {
-    setStatus('error', 'API error');
-    showApiError('Could not load scores: ' + err.message);
+    setStatus('error', 'Scores unavailable');
+    showApiError('Could not load live scores — they will appear automatically once the tournament begins on June 11.');
   }
 }
 
@@ -827,7 +843,7 @@ function buildExpand(p) {
     const bonusRow=ts.bonus>0?`<div class="bonus-line"><span>🎯 Stage bonuses</span><span>+${ts.bonus}</span></div>`:'';
     return `<div class="t-card">
       <div class="t-card-header">
-        <div><div class="t-card-name">${esc(team)}</div><div class="t-card-pot">${potLabels[i]}</div></div>
+        <div><div class="t-card-name">${TEAM_CODE[team] ? flagImg(TEAM_CODE[team], 16) + ' ' : ''}${esc(team)}</div><div class="t-card-pot">${potLabels[i]}</div></div>
         <div class="t-card-score">${ts.total} pts</div>
       </div>${rows}${bonusRow}</div>`;
   }).join('')}</div>`;
@@ -844,6 +860,17 @@ function clearApiError() { document.getElementById('api-error').style.display='n
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 setInterval(()=>{ if(document.getElementById('view-leaderboard').style.display!=='none') refreshData(); }, 3600000);
+
+function reportIssue() {
+  const subject = encodeURIComponent('World Cup 2026 Site Issue');
+  const body = encodeURIComponent(
+    'Hi Liam,\n\nI\'m having an issue with the World Cup 2026 site.\n\n' +
+    'What happened:\n[describe the issue here]\n\n' +
+    'Page: ' + window.location.href + '\n' +
+    'Time: ' + new Date().toLocaleString()
+  );
+  window.location.href = 'mailto:liamballesty@gmail.com?subject=' + subject + '&body=' + body;
+}
 </script>
 </body>
 </html>
