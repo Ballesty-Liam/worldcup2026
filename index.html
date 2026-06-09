@@ -508,7 +508,7 @@ function renderPotReveal() {
           <div class="pot-card-name">${esc(pick.participant)}</div>
         </div>
         <div class="pot-card-face pot-card-back">
-          <div class="pot-card-flag">${flagImg(pick.team.c, 36)}</div>
+          <div class="pot-card-flag">${flagImg(TEAM_CODE[pick.team.n], 36)}</div>
           <div class="pot-card-team">${esc(pick.team.n)}</div>
           <div class="pot-card-p">${esc(pick.participant)}</div>
         </div>
@@ -598,7 +598,7 @@ function showDraftComplete() {
       <div class="result-teams">
         ${teams.map(t => `
           <div class="result-team">
-            <span class="result-flag">${flagImg(t.team.c, 20)}</span>
+            <span class="result-flag">${flagImg(TEAM_CODE[t.team.n], 20)}</span>
             <span class="result-tname">${esc(t.team.n)}</span>
             <span class="result-pot-dot" style="background:${POTS[t.potIndex].dotColor}"></span>
           </div>`).join('')}
@@ -862,14 +862,20 @@ function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 setInterval(()=>{ if(document.getElementById('view-leaderboard').style.display!=='none') refreshData(); }, 3600000);
 
 function reportIssue() {
-  const subject = encodeURIComponent('World Cup 2026 Site Issue');
   const body = encodeURIComponent(
-    'Hi Liam,\n\nI\'m having an issue with the World Cup 2026 site.\n\n' +
-    'What happened:\n[describe the issue here]\n\n' +
-    'Page: ' + window.location.href + '\n' +
-    'Time: ' + new Date().toLocaleString()
+    '## CHECK THE WEBSITE\n\n' +
+    '> Reported via the site report button\n\n' +
+    '**URL:** ' + window.location.href + '\n' +
+    '**Time:** ' + new Date().toLocaleString() + '\n\n' +
+    '**What was happening when you clicked Report Issue?**\n' +
+    '_Leave a comment below describing what went wrong._'
   );
-  window.location.href = 'mailto:liamballesty@gmail.com?subject=' + subject + '&body=' + body;
+  const url = 'https://github.com/Ballesty-Liam/worldcup2026/issues/new' +
+    '?title=' + encodeURIComponent('CHECK THE WEBSITE') +
+    '&body=' + body +
+    '&assignees=Ballesty-Liam' +
+    '&labels=' + encodeURIComponent('bug');
+  window.open(url, '_blank');
 }
 </script>
 </body>
