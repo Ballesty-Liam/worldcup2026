@@ -166,6 +166,75 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 
 /* Confetti canvas */
 #confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+
+/* ══════════════════════════════════════
+   SCHEDULE VIEW
+══════════════════════════════════════ */
+.nextup-section{margin-bottom:32px}
+.nextup-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:10px}
+.nextup-hdr-left h2{font-size:1.05rem;font-weight:800;margin-bottom:3px}
+.nextup-hdr-left p{font-size:.78rem;color:var(--muted)}
+.nextup-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+
+.nextup-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;transition:border-color .2s}
+.nextup-card.is-relevant{border-color:rgba(245,158,11,.4)}
+.nextup-card.is-matchup{border-color:var(--accent);background:rgba(245,158,11,.03)}
+.nextup-card.is-selfmatch{border-color:var(--purple);background:rgba(139,92,246,.03)}
+
+.matchup-badge{display:inline-block;font-size:.58rem;background:rgba(245,158,11,.15);color:var(--accent);padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}
+.selfmatch-badge{display:inline-block;font-size:.58rem;background:rgba(139,92,246,.15);color:var(--purple);padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}
+
+.nextup-meta{font-size:.68rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px}
+.nextup-matchup{display:flex;align-items:center;gap:6px}
+.nextup-team{flex:1;text-align:center;min-width:0}
+.nextup-tname{font-weight:700;font-size:.78rem;margin-top:4px;line-height:1.2}
+.nextup-owner{font-size:.65rem;color:var(--accent);font-weight:700;margin-top:3px}
+.nextup-center{width:52px;flex-shrink:0;text-align:center}
+.nextup-vs{color:var(--muted);font-size:.82rem;font-weight:700}
+.nextup-score-num{font-size:1.1rem;font-weight:800;line-height:1}
+.nextup-score-lbl{font-size:.58rem;color:var(--muted);display:block;margin-top:2px;text-transform:uppercase}
+.nextup-score-lbl.live{color:var(--green)}
+.nextup-footer{font-size:.62rem;color:var(--muted);text-align:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+
+/* Full schedule list */
+.sched-stage-sep{padding:16px 0 4px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-top:1px solid var(--border);margin-top:14px}
+.sched-day-hdr{display:flex;align-items:center;gap:8px;padding:10px 0 5px}
+.sched-day-name{font-weight:800;font-size:.88rem}
+.sched-day-sub{font-size:.72rem;color:var(--muted)}
+.today-pip{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;flex-shrink:0}
+
+.sched-match{display:grid;grid-template-columns:30px 50px 1fr auto;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:var(--surface);margin-bottom:3px;font-size:.8rem;border-left:2px solid transparent;transition:background .15s}
+.sched-match:hover{background:var(--surface2)}
+.sched-match.owned{border-left-color:rgba(245,158,11,.5)}
+.sched-match.matchup{border-left-color:var(--accent)}
+.sched-match.selfmatch{border-left-color:var(--purple)}
+
+.sched-grp{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;background:var(--surface2);color:var(--muted);flex-shrink:0;text-align:center;line-height:1.1}
+.sched-grp.g-A{background:rgba(245,158,11,.15);color:#f59e0b}
+.sched-grp.g-B{background:rgba(16,185,129,.15);color:#10b981}
+.sched-grp.g-C{background:rgba(139,92,246,.15);color:#8b5cf6}
+.sched-grp.g-D{background:rgba(239,68,68,.15);color:#ef4444}
+.sched-grp.g-E{background:rgba(96,165,250,.15);color:#60a5fa}
+.sched-grp.g-F{background:rgba(251,191,36,.15);color:#fbbf24}
+.sched-grp.g-G{background:rgba(52,211,153,.15);color:#34d399}
+.sched-grp.g-H{background:rgba(248,113,113,.15);color:#f87171}
+.sched-grp.g-I{background:rgba(167,139,250,.15);color:#a78bfa}
+.sched-grp.g-J{background:rgba(74,222,128,.15);color:#4ade80}
+.sched-grp.g-K{background:rgba(251,146,60,.15);color:#fb923c}
+.sched-grp.g-L{background:rgba(232,121,249,.15);color:#e879f9}
+.sched-grp.ko{background:rgba(100,116,139,.15);color:#94a3b8;font-size:.55rem}
+
+.sched-time{font-size:.72rem;color:var(--muted);white-space:nowrap}
+.sched-teams{display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-width:0}
+.sched-side{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.sched-side .otag{font-size:.58rem;color:var(--accent);font-weight:700;padding:1px 5px;background:rgba(245,158,11,.12);border-radius:4px}
+.sched-vs-txt{color:var(--muted);font-size:.7rem;flex-shrink:0}
+.sched-score-cell{font-size:.8rem;font-weight:800;white-space:nowrap;text-align:right}
+.sched-score-cell .ft{color:var(--text)}
+.sched-score-cell .lv{color:var(--green);animation:blink 1.5s infinite}
+.sched-score-cell .lbl{font-size:.58rem;font-weight:400;color:var(--muted);margin-left:3px}
+.sched-score-cell .lbl.lv{color:var(--green)}
+.sched-tbd{color:var(--muted);font-style:italic;font-size:.78rem}
 </style>
 </head>
 <body>
@@ -178,6 +247,7 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
     <button class="tab-btn" id="tab-home" onclick="showView('home')">🏠 Home</button>
     <button class="tab-btn" id="tab-draft" onclick="showView('draft')">🎲 Draft</button>
     <button class="tab-btn" id="tab-leaderboard" onclick="showView('leaderboard')">🏆 Leaderboard</button>
+    <button class="tab-btn" id="tab-schedule" onclick="showView('schedule')">📅 Schedule</button>
     <button class="tab-btn" id="tab-coffee" onclick="showView('coffee')" style="border-color:rgba(139,92,246,.4);color:#c4b5fd">🙏 Buy me a coffee!</button>
     <button class="tab-btn" style="border-color:rgba(239,68,68,.4);color:var(--red)" onclick="reportIssue()">⚠️ Report Issue</button>
   </nav>
@@ -329,6 +399,30 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   <div class="no-data" id="no-data-msg" style="display:none">
     ⏳ Tournament starts June 11 — results will appear as games finish.
   </div>
+</main>
+</div>
+
+<!-- ═══════════ SCHEDULE VIEW ═══════════ -->
+<div id="view-schedule" style="display:none">
+<main>
+  <!-- Next Up -->
+  <div class="nextup-section">
+    <div class="nextup-hdr">
+      <div class="nextup-hdr-left">
+        <h2 id="nextup-title">📅 Today's Games</h2>
+        <p id="nextup-subtitle"></p>
+      </div>
+      <button class="sm" onclick="refreshScheduleData()">↻ Refresh</button>
+    </div>
+    <div class="nextup-grid" id="nextup-grid"><div class="no-data">Loading…</div></div>
+  </div>
+
+  <!-- Full Schedule -->
+  <div class="lb-section-header" style="margin-top:8px">
+    <h2>📋 Full Schedule</h2>
+    <span style="font-size:.72rem;color:var(--muted)">All times in your local timezone</span>
+  </div>
+  <div id="sched-container"></div>
 </main>
 </div>
 
@@ -529,10 +623,12 @@ function showView(v) {
   document.getElementById('view-home').style.display = v === 'home' ? 'block' : 'none';
   document.getElementById('view-draft').style.display = v === 'draft' ? 'block' : 'none';
   document.getElementById('view-leaderboard').style.display = v === 'leaderboard' ? 'block' : 'none';
+  document.getElementById('view-schedule').style.display = v === 'schedule' ? 'block' : 'none';
   document.getElementById('view-coffee').style.display = v === 'coffee' ? 'block' : 'none';
   document.getElementById('tab-home').classList.toggle('active', v === 'home');
   document.getElementById('tab-draft').classList.toggle('active', v === 'draft');
   document.getElementById('tab-leaderboard').classList.toggle('active', v === 'leaderboard');
+  document.getElementById('tab-schedule').classList.toggle('active', v === 'schedule');
   document.getElementById('tab-coffee').classList.toggle('active', v === 'coffee');
   if (v === 'draft') {
     showDraftComplete();
@@ -540,6 +636,11 @@ function showView(v) {
   if (v === 'leaderboard') {
     loadAndRenderLeaderboard();
     refreshData();
+  }
+  if (v === 'schedule') {
+    lbParticipants = LOCKED_PARTICIPANTS;
+    renderScheduleView();
+    if (new Date() >= new Date(WC_START)) refreshData().then(() => renderScheduleView()).catch(() => {});
   }
 }
 
@@ -815,6 +916,7 @@ async function refreshData() {
     clearApiError();
     setStatus('live', `${allFixtures.filter(f=>f.event_status==='Finished').length} results loaded`);
     renderLeaderboard();
+    renderScheduleView();
   } catch(err) {
     setStatus('error', 'Scores unavailable');
     showApiError('Could not load live scores — they will appear automatically once the tournament begins on June 11.');
@@ -938,7 +1040,334 @@ function showApiError(msg) { const e=document.getElementById('api-error'); e.tex
 function clearApiError() { document.getElementById('api-error').style.display='none'; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-setInterval(()=>{ if(document.getElementById('view-leaderboard').style.display!=='none') refreshData(); }, 3600000);
+setInterval(()=>{
+  if(document.getElementById('view-leaderboard').style.display!=='none') refreshData();
+  else if(document.getElementById('view-schedule').style.display!=='none') refreshData();
+}, 3600000);
+
+// ─────────────────────────────────────────────────
+//  ALL 104 FIXTURES  (UTC times, our team names)
+// ─────────────────────────────────────────────────
+const FIXTURES=[
+  // GROUP A
+  {d:'2026-06-11T19:00:00Z',g:'A',h:'Mexico',a:'South Africa'},
+  {d:'2026-06-12T02:00:00Z',g:'A',h:'South Korea',a:'Czech Republic'},
+  {d:'2026-06-18T16:00:00Z',g:'A',h:'Czech Republic',a:'South Africa'},
+  {d:'2026-06-19T01:00:00Z',g:'A',h:'Mexico',a:'South Korea'},
+  {d:'2026-06-25T01:00:00Z',g:'A',h:'Czech Republic',a:'Mexico'},
+  {d:'2026-06-25T01:00:00Z',g:'A',h:'South Africa',a:'South Korea'},
+  // GROUP B
+  {d:'2026-06-12T19:00:00Z',g:'B',h:'Canada',a:'Bosnia-Herzegovina'},
+  {d:'2026-06-13T19:00:00Z',g:'B',h:'Qatar',a:'Switzerland'},
+  {d:'2026-06-18T19:00:00Z',g:'B',h:'Switzerland',a:'Bosnia-Herzegovina'},
+  {d:'2026-06-18T22:00:00Z',g:'B',h:'Canada',a:'Qatar'},
+  {d:'2026-06-24T19:00:00Z',g:'B',h:'Switzerland',a:'Canada'},
+  {d:'2026-06-24T19:00:00Z',g:'B',h:'Bosnia-Herzegovina',a:'Qatar'},
+  // GROUP C
+  {d:'2026-06-13T22:00:00Z',g:'C',h:'Brazil',a:'Morocco'},
+  {d:'2026-06-14T01:00:00Z',g:'C',h:'Haiti',a:'Scotland'},
+  {d:'2026-06-19T22:00:00Z',g:'C',h:'Scotland',a:'Morocco'},
+  {d:'2026-06-20T00:30:00Z',g:'C',h:'Brazil',a:'Haiti'},
+  {d:'2026-06-24T22:00:00Z',g:'C',h:'Morocco',a:'Haiti'},
+  {d:'2026-06-24T22:00:00Z',g:'C',h:'Scotland',a:'Brazil'},
+  // GROUP D
+  {d:'2026-06-13T01:00:00Z',g:'D',h:'USA',a:'Paraguay'},
+  {d:'2026-06-14T04:00:00Z',g:'D',h:'Australia',a:'Turkey'},
+  {d:'2026-06-19T19:00:00Z',g:'D',h:'USA',a:'Australia'},
+  {d:'2026-06-20T03:00:00Z',g:'D',h:'Turkey',a:'Paraguay'},
+  {d:'2026-06-26T02:00:00Z',g:'D',h:'Turkey',a:'USA'},
+  {d:'2026-06-26T02:00:00Z',g:'D',h:'Paraguay',a:'Australia'},
+  // GROUP E
+  {d:'2026-06-14T17:00:00Z',g:'E',h:'Germany',a:'Curaçao'},
+  {d:'2026-06-14T23:00:00Z',g:'E',h:'Ivory Coast',a:'Ecuador'},
+  {d:'2026-06-20T20:00:00Z',g:'E',h:'Germany',a:'Ivory Coast'},
+  {d:'2026-06-21T00:00:00Z',g:'E',h:'Ecuador',a:'Curaçao'},
+  {d:'2026-06-25T20:00:00Z',g:'E',h:'Ecuador',a:'Germany'},
+  {d:'2026-06-25T20:00:00Z',g:'E',h:'Curaçao',a:'Ivory Coast'},
+  // GROUP F
+  {d:'2026-06-14T20:00:00Z',g:'F',h:'Netherlands',a:'Japan'},
+  {d:'2026-06-15T02:00:00Z',g:'F',h:'Sweden',a:'Tunisia'},
+  {d:'2026-06-20T17:00:00Z',g:'F',h:'Netherlands',a:'Sweden'},
+  {d:'2026-06-21T04:00:00Z',g:'F',h:'Tunisia',a:'Japan'},
+  {d:'2026-06-25T23:00:00Z',g:'F',h:'Tunisia',a:'Netherlands'},
+  {d:'2026-06-25T23:00:00Z',g:'F',h:'Japan',a:'Sweden'},
+  // GROUP G
+  {d:'2026-06-15T19:00:00Z',g:'G',h:'Belgium',a:'Egypt'},
+  {d:'2026-06-16T01:00:00Z',g:'G',h:'Iran',a:'New Zealand'},
+  {d:'2026-06-21T19:00:00Z',g:'G',h:'Belgium',a:'Iran'},
+  {d:'2026-06-22T01:00:00Z',g:'G',h:'New Zealand',a:'Egypt'},
+  {d:'2026-06-27T03:00:00Z',g:'G',h:'New Zealand',a:'Belgium'},
+  {d:'2026-06-27T03:00:00Z',g:'G',h:'Egypt',a:'Iran'},
+  // GROUP H
+  {d:'2026-06-15T16:00:00Z',g:'H',h:'Spain',a:'Cabo Verde'},
+  {d:'2026-06-15T22:00:00Z',g:'H',h:'Saudi Arabia',a:'Uruguay'},
+  {d:'2026-06-21T16:00:00Z',g:'H',h:'Spain',a:'Saudi Arabia'},
+  {d:'2026-06-21T22:00:00Z',g:'H',h:'Uruguay',a:'Cabo Verde'},
+  {d:'2026-06-27T00:00:00Z',g:'H',h:'Uruguay',a:'Spain'},
+  {d:'2026-06-27T00:00:00Z',g:'H',h:'Cabo Verde',a:'Saudi Arabia'},
+  // GROUP I
+  {d:'2026-06-16T19:00:00Z',g:'I',h:'France',a:'Senegal'},
+  {d:'2026-06-16T22:00:00Z',g:'I',h:'Iraq',a:'Norway'},
+  {d:'2026-06-22T21:00:00Z',g:'I',h:'France',a:'Iraq'},
+  {d:'2026-06-23T00:00:00Z',g:'I',h:'Norway',a:'Senegal'},
+  {d:'2026-06-26T19:00:00Z',g:'I',h:'Norway',a:'France'},
+  {d:'2026-06-26T19:00:00Z',g:'I',h:'Senegal',a:'Iraq'},
+  // GROUP J
+  {d:'2026-06-17T01:00:00Z',g:'J',h:'Argentina',a:'Algeria'},
+  {d:'2026-06-17T04:00:00Z',g:'J',h:'Austria',a:'Jordan'},
+  {d:'2026-06-22T17:00:00Z',g:'J',h:'Argentina',a:'Austria'},
+  {d:'2026-06-23T03:00:00Z',g:'J',h:'Jordan',a:'Algeria'},
+  {d:'2026-06-28T02:00:00Z',g:'J',h:'Jordan',a:'Argentina'},
+  {d:'2026-06-28T02:00:00Z',g:'J',h:'Algeria',a:'Austria'},
+  // GROUP K
+  {d:'2026-06-17T17:00:00Z',g:'K',h:'Portugal',a:'DR Congo'},
+  {d:'2026-06-18T02:00:00Z',g:'K',h:'Uzbekistan',a:'Colombia'},
+  {d:'2026-06-23T17:00:00Z',g:'K',h:'Portugal',a:'Uzbekistan'},
+  {d:'2026-06-24T02:00:00Z',g:'K',h:'Colombia',a:'DR Congo'},
+  {d:'2026-06-27T23:30:00Z',g:'K',h:'Colombia',a:'Portugal'},
+  {d:'2026-06-27T23:30:00Z',g:'K',h:'DR Congo',a:'Uzbekistan'},
+  // GROUP L
+  {d:'2026-06-17T20:00:00Z',g:'L',h:'England',a:'Croatia'},
+  {d:'2026-06-17T23:00:00Z',g:'L',h:'Ghana',a:'Panama'},
+  {d:'2026-06-23T20:00:00Z',g:'L',h:'England',a:'Ghana'},
+  {d:'2026-06-23T23:00:00Z',g:'L',h:'Panama',a:'Croatia'},
+  {d:'2026-06-27T21:00:00Z',g:'L',h:'Panama',a:'England'},
+  {d:'2026-06-27T21:00:00Z',g:'L',h:'Croatia',a:'Ghana'},
+  // ROUND OF 32
+  {d:'2026-06-28T19:00:00Z',st:'R32'},{d:'2026-06-29T17:00:00Z',st:'R32'},
+  {d:'2026-06-29T20:30:00Z',st:'R32'},{d:'2026-06-30T01:00:00Z',st:'R32'},
+  {d:'2026-06-30T17:00:00Z',st:'R32'},{d:'2026-06-30T21:00:00Z',st:'R32'},
+  {d:'2026-07-01T01:00:00Z',st:'R32'},{d:'2026-07-01T16:00:00Z',st:'R32'},
+  {d:'2026-07-01T20:00:00Z',st:'R32'},{d:'2026-07-02T00:00:00Z',st:'R32'},
+  {d:'2026-07-02T19:00:00Z',st:'R32'},{d:'2026-07-02T23:00:00Z',st:'R32'},
+  {d:'2026-07-03T03:00:00Z',st:'R32'},{d:'2026-07-03T18:00:00Z',st:'R32'},
+  {d:'2026-07-03T22:00:00Z',st:'R32'},{d:'2026-07-04T01:30:00Z',st:'R32'},
+  // ROUND OF 16
+  {d:'2026-07-04T17:00:00Z',st:'R16'},{d:'2026-07-04T21:00:00Z',st:'R16'},
+  {d:'2026-07-05T20:00:00Z',st:'R16'},{d:'2026-07-06T00:00:00Z',st:'R16'},
+  {d:'2026-07-06T19:00:00Z',st:'R16'},{d:'2026-07-07T00:00:00Z',st:'R16'},
+  {d:'2026-07-07T16:00:00Z',st:'R16'},{d:'2026-07-07T20:00:00Z',st:'R16'},
+  // QUARTER-FINALS
+  {d:'2026-07-09T20:00:00Z',st:'QF'},{d:'2026-07-10T19:00:00Z',st:'QF'},
+  {d:'2026-07-11T21:00:00Z',st:'QF'},{d:'2026-07-12T01:00:00Z',st:'QF'},
+  // SEMI-FINALS
+  {d:'2026-07-14T19:00:00Z',st:'SF'},{d:'2026-07-15T19:00:00Z',st:'SF'},
+  // 3RD PLACE & FINAL
+  {d:'2026-07-18T21:00:00Z',st:'3rd Place'},
+  {d:'2026-07-19T19:00:00Z',st:'Final'}
+];
+
+// ─────────────────────────────────────────────────
+//  SCHEDULE HELPERS
+// ─────────────────────────────────────────────────
+let _ownerMap = null;
+function getOwnerMap() {
+  if (!_ownerMap) {
+    _ownerMap = {};
+    LOCKED_PARTICIPANTS.forEach(p => p.teams.forEach(t => { _ownerMap[t] = p.name; }));
+  }
+  return _ownerMap;
+}
+
+function localDateKey(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function getMatchScore(home, away) {
+  if (!allFixtures || !allFixtures.length) return null;
+  for (const f of allFixtures) {
+    const st = f.event_status||'';
+    const finished = st==='Finished'||st==='90';
+    const live = st==='inprogress'||st==='live'||st==='IN_PLAY'||/^\d+$/.test(st);
+    if (!finished && !live) continue;
+    if (!teamMatch(f.event_home_team, home)||!teamMatch(f.event_away_team, away)) continue;
+    const res=(f.event_final_result||'').replace(/\s/g,'').split('-');
+    if (res.length!==2||isNaN(parseInt(res[0]))||isNaN(parseInt(res[1]))) continue;
+    return {home:res[0], away:res[1], live, label: live?'LIVE':'FT'};
+  }
+  return null;
+}
+
+// ─────────────────────────────────────────────────
+//  NEXT UP RENDERING
+// ─────────────────────────────────────────────────
+function renderNextUp() {
+  const ownerMap = getOwnerMap();
+  const now = new Date();
+  const todayKey = localDateKey(now);
+
+  let displayFixtures = FIXTURES.filter(f => f.h && localDateKey(new Date(f.d)) === todayKey);
+  let titleText = "📅 Today's Games";
+  let subtitleText = now.toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+
+  if (displayFixtures.length === 0) {
+    const future = FIXTURES.filter(f => f.h && new Date(f.d) > now).sort((a,b) => new Date(a.d)-new Date(b.d));
+    if (future.length > 0) {
+      const nextKey = localDateKey(new Date(future[0].d));
+      displayFixtures = future.filter(f => localDateKey(new Date(f.d)) === nextKey);
+      titleText = '📅 Next Up';
+      subtitleText = new Date(future[0].d).toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+    }
+  }
+
+  document.getElementById('nextup-title').textContent = titleText;
+  document.getElementById('nextup-subtitle').textContent =
+    subtitleText + (displayFixtures.length ? ' · ' + displayFixtures.length + ' match' + (displayFixtures.length!==1?'es':'') : '');
+
+  const grid = document.getElementById('nextup-grid');
+  if (displayFixtures.length === 0) {
+    grid.innerHTML = '<div class="no-data">No upcoming fixtures found.</div>';
+    return;
+  }
+
+  grid.innerHTML = displayFixtures.map(f => {
+    const home = f.h, away = f.a;
+    const homeOwner = ownerMap[home];
+    const awayOwner = ownerMap[away];
+    const isSelf = !!(homeOwner && awayOwner && homeOwner === awayOwner);
+    const isMatchup = !!(homeOwner && awayOwner && homeOwner !== awayOwner);
+    const isRelevant = !!(homeOwner || awayOwner);
+
+    const time = new Date(f.d).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+    const groupLabel = f.g ? 'Group ' + f.g : (f.st || '');
+
+    const score = getMatchScore(home, away);
+    let centerHtml;
+    if (score) {
+      centerHtml = `<div class="nextup-score-num">${score.home}–${score.away}</div><span class="nextup-score-lbl${score.live?' live':''}">${score.label}</span>`;
+    } else {
+      centerHtml = `<div class="nextup-vs">vs</div>`;
+    }
+
+    const hc = TEAM_CODE[home], ac = TEAM_CODE[away];
+    const badgeHtml = isSelf
+      ? '<div style="text-align:center;margin-bottom:6px"><span class="selfmatch-badge">🔀 same player</span></div>'
+      : isMatchup ? '<div style="text-align:center;margin-bottom:6px"><span class="matchup-badge">⚔️ player matchup</span></div>' : '';
+
+    return `<div class="nextup-card ${isSelf?'is-selfmatch':isMatchup?'is-matchup':isRelevant?'is-relevant':''}">
+      ${badgeHtml}
+      <div class="nextup-meta">${esc(time)} · ${esc(groupLabel)}</div>
+      <div class="nextup-matchup">
+        <div class="nextup-team">
+          ${hc ? flagImg(hc, 28) : ''}
+          <div class="nextup-tname">${esc(home)}</div>
+          ${homeOwner ? `<div class="nextup-owner">${esc(homeOwner)}</div>` : ''}
+        </div>
+        <div class="nextup-center">${centerHtml}</div>
+        <div class="nextup-team">
+          ${ac ? flagImg(ac, 28) : ''}
+          <div class="nextup-tname">${esc(away)}</div>
+          ${awayOwner ? `<div class="nextup-owner">${esc(awayOwner)}</div>` : ''}
+        </div>
+      </div>
+      <div class="nextup-footer">${esc(groupLabel)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────
+//  FULL SCHEDULE RENDERING
+// ─────────────────────────────────────────────────
+function renderFullSchedule() {
+  const ownerMap = getOwnerMap();
+  const now = new Date();
+  const todayKey = localDateKey(now);
+
+  // Group fixtures by local date
+  const dayMap = {}, dayOrder = [];
+  FIXTURES.forEach(f => {
+    const d = new Date(f.d);
+    const key = localDateKey(d);
+    if (!dayMap[key]) {
+      dayMap[key] = {
+        ts: d.getTime(),
+        full: d.toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric'}),
+        isToday: key === todayKey,
+        fixtures: []
+      };
+      dayOrder.push(key);
+    }
+    dayMap[key].fixtures.push(f);
+  });
+  dayOrder.sort((a,b) => dayMap[a].ts - dayMap[b].ts);
+
+  const STAGE_LABELS = {R32:'Round of 32',R16:'Round of 16',QF:'Quarter-Finals',SF:'Semi-Finals','3rd Place':'Third Place',Final:'Final'};
+  let html = '';
+  let lastStageSep = null;
+
+  dayOrder.forEach(key => {
+    const day = dayMap[key];
+    const firstFix = day.fixtures[0];
+    const curStage = firstFix.g ? 'group' : (firstFix.st||'');
+
+    if (!firstFix.g && curStage !== lastStageSep) {
+      lastStageSep = curStage;
+      html += `<div class="sched-stage-sep">${esc(STAGE_LABELS[curStage] || curStage)}</div>`;
+    }
+
+    html += `<div class="sched-day-hdr">
+      ${day.isToday ? '<div class="today-pip"></div>' : ''}
+      <span class="sched-day-name">${esc(day.full)}</span>
+      ${day.isToday ? '<span class="sched-day-sub" style="color:var(--green);font-weight:700">Today</span>' : ''}
+    </div>`;
+
+    day.fixtures.forEach(f => {
+      const time = new Date(f.d).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+
+      if (!f.h) {
+        html += `<div class="sched-match">
+          <div class="sched-grp ko">${esc(f.st||'')}</div>
+          <div class="sched-time">${esc(time)}</div>
+          <div class="sched-teams"><span class="sched-tbd">TBD <span class="sched-vs-txt">v</span> TBD</span></div>
+          <div></div>
+        </div>`;
+        return;
+      }
+
+      const home = f.h, away = f.a;
+      const ho = ownerMap[home], ao = ownerMap[away];
+      const isSelf = !!(ho && ao && ho === ao);
+      const isMatchup = !!(ho && ao && ho !== ao);
+      const isOwned = !!(ho || ao);
+      const grpCls = f.g ? 'g-' + f.g : 'ko';
+      const score = getMatchScore(home, away);
+
+      let scoreHtml = '<div></div>';
+      if (score) {
+        scoreHtml = `<div class="sched-score-cell"><span class="${score.live?'lv':'ft'}">${score.home}–${score.away}<span class="lbl${score.live?' lv':''}">${score.label}</span></span></div>`;
+      }
+
+      const hc = TEAM_CODE[home], ac = TEAM_CODE[away];
+      html += `<div class="sched-match ${isSelf?'selfmatch':isMatchup?'matchup':isOwned?'owned':''}">
+        <div class="sched-grp ${grpCls}">${f.g || esc(f.st||'')}</div>
+        <div class="sched-time">${esc(time)}</div>
+        <div class="sched-teams">
+          <span class="sched-side">${hc?flagImg(hc,16):''} ${esc(home)}${ho?` <span class="otag">${esc(ho)}</span>`:''}</span>
+          <span class="sched-vs-txt">v</span>
+          <span class="sched-side">${ac?flagImg(ac,16):''} ${esc(away)}${ao?` <span class="otag">${esc(ao)}</span>`:''}</span>
+        </div>
+        ${scoreHtml}
+      </div>`;
+    });
+  });
+
+  document.getElementById('sched-container').innerHTML = html;
+}
+
+function renderScheduleView() {
+  if (document.getElementById('view-schedule').style.display === 'none') return;
+  renderNextUp();
+  renderFullSchedule();
+}
+
+async function refreshScheduleData() {
+  lbParticipants = LOCKED_PARTICIPANTS;
+  renderScheduleView();
+  if (new Date() >= new Date(WC_START)) {
+    await refreshData().catch(() => {});
+    renderScheduleView();
+  }
+}
 
 function reportIssue() {
   const body = encodeURIComponent(
