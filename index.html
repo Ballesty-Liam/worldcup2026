@@ -389,6 +389,7 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
           <th>Participant</th>
           <th class="r">Match</th>
           <th class="r">Bonus</th>
+          <th class="r">GD</th>
           <th class="r">Total</th>
         </tr>
       </thead>
@@ -980,25 +981,27 @@ function scoreTeam(teamName) {
     results.push({opponent:opp,scored:sc,conceded:cc,outcome,pts,st,stL:stageLabel(st),date:f.event_date});
   }
   const mp=results.reduce((s,r)=>s+r.pts,0);
+  const gd=results.reduce((s,r)=>s+(r.scored-r.conceded),0);
   let bonus=0;
   if (played.has('r32')) bonus+=S.bonusR32;
   if (played.has('r16')) bonus+=S.bonusR16;
   if (played.has('qf'))  bonus+=S.bonusQF;
   if (played.has('sf'))  bonus+=S.bonusSF;
   if (played.has('final')) bonus+=S.bonusFinal;
-  return {mp, bonus, total:mp+bonus, results, played};
+  return {mp, bonus, total:mp+bonus, results, played, gd};
 }
 
 function renderLeaderboard() {
   if (lbParticipants.length===0) {
-    document.getElementById('lb-body').innerHTML = `<tr><td colspan="5"><div class="no-data">Complete the draft first, then come back here.</div></td></tr>`;
+    document.getElementById('lb-body').innerHTML = `<tr><td colspan="6"><div class="no-data">Complete the draft first, then come back here.</div></td></tr>`;
     return;
   }
   const scored = lbParticipants.map(p => {
     const ts = p.teams.map(t => scoreTeam(t));
     const tm=ts.reduce((s,t)=>s+t.mp,0), tb=ts.reduce((s,t)=>s+t.bonus,0);
-    return {...p, ts, tm, tb, total:tm+tb};
-  }).sort((a,b)=>b.total-a.total||b.tm-a.tm);
+    const tgd=ts.reduce((s,t)=>s+t.gd,0);
+    return {...p, ts, tm, tb, total:tm+tb, tgd};
+  }).sort((a,b)=>b.total-a.total||b.tm-a.tm||b.tgd-a.tgd);
 
   const finished = allFixtures.filter(f=>f.event_status==='Finished').length;
   document.getElementById('no-data-msg').style.display = finished===0&&lbParticipants.length>0?'':'none';
@@ -1008,14 +1011,17 @@ function renderLeaderboard() {
   scored.forEach((p,i) => {
     const rank=i+1, rc=rank===1?'gold':rank===2?'silver':rank===3?'bronze':'';
     const tr=document.createElement('tr');
+    const gdColor = p.tgd>0?'var(--green)':p.tgd<0?'var(--red)':'var(--muted)';
+    const gdText  = p.tgd>0?'+'+p.tgd:String(p.tgd);
     tr.innerHTML=`<td><div class="rank-b ${rc}">${rank}</div></td>
       <td><div class="p-name">${esc(p.name)}</div></td>
       <td class="r pts">${p.tm}</td>
       <td class="r pts" style="color:var(--green)">${p.tb}</td>
+      <td class="r pts" style="color:${gdColor}">${gdText}</td>
       <td class="r pts total">${p.total}</td>`;
     const xtr=document.createElement('tr');
     xtr.className='expand-row';
-    xtr.innerHTML=`<td colspan="5"><div class="expand-content" id="ex-${i}">${buildExpand(p)}</div></td>`;
+    xtr.innerHTML=`<td colspan="6"><div class="expand-content" id="ex-${i}">${buildExpand(p)}</div></td>`;
     tr.addEventListener('click',()=>{
       const el=document.getElementById(`ex-${i}`);
       const open=el.classList.contains('open');
