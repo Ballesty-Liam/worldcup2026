@@ -16,7 +16,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 /* ── Header ── */
 header{background:linear-gradient(135deg,#0f172a,#1a2f50);border-bottom:2px solid var(--accent);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
-.h-title{font-size:1.1rem;font-weight:800;letter-spacing:-.3px;white-space:nowrap}
+.h-title{font-size:1.1rem;font-weight:800;letter-spacing:-.3px}
 .h-title span{color:var(--accent)}
 .h-nav{display:flex;gap:6px;flex-wrap:nowrap}
 .tab-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
@@ -240,13 +240,23 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
    MOBILE
 ══════════════════════════════════════ */
 @media(max-width:640px){
-  /* Header: stack title + scrollable nav strip + status */
-  header{flex-direction:column;align-items:stretch;padding:10px 14px;gap:6px}
-  .h-title{font-size:.95rem;text-align:center}
-  .h-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  /* Header: row 1 = title (left) + status (right)
+             row 2 = full-width scrollable nav
+     Uses flex-wrap on the header (solid iOS support) rather than
+     flex-direction:column, which breaks overflow-x:auto on Safari. */
+  header{padding:10px 14px;gap:6px 8px;align-items:center}
+  .h-title{font-size:.82rem;white-space:normal;flex:1;min-width:0}
+  .h-status{font-size:.68rem;flex-shrink:0}
+  .h-nav{
+    order:3;            /* always renders below title+status */
+    width:100%;         /* forces wrap to its own row */
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
   .h-nav::-webkit-scrollbar{display:none}
-  .tab-btn{padding:6px 11px;font-size:.72rem}
-  .h-status{justify-content:center;font-size:.68rem}
+  .tab-btn{padding:5px 10px;font-size:.7rem}
 
   /* Leaderboard: tighter cells */
   th,td{padding:9px 10px;font-size:.8rem}
@@ -257,7 +267,7 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   .sched-time{font-size:.66rem}
   .nextup-grid{grid-template-columns:1fr}
 
-  /* Home cards: single column on phone */
+  /* Home: single column */
   .home-cards{grid-template-columns:1fr}
   .home-dates{gap:16px}
 }
