@@ -869,57 +869,77 @@ function animateConfetti() {
 // ─────────────────────────────────────────────────
 //  LEADERBOARD
 // ─────────────────────────────────────────────────
-const RAPIDAPI_KEY = '286273b31bmsh4777dd2da740dffp1acd0bjsn88014ef5e41b';
-const RAPIDAPI_HOST = 'allsportsapi2.p.rapidapi.com';
 const WC_START = '2026-06-11';
 const WC_END   = '2026-07-19';
 const S = { groupWin:3, groupDraw:1, knockoutWin:3, bonusR32:1, bonusR16:1, bonusQF:2, bonusSF:2, bonusFinal:3 };
 
 let lbParticipants = [];
 let allFixtures = [];
-let wcLeagueId = null;
 
 function loadAndRenderLeaderboard() {
   lbParticipants = LOCKED_PARTICIPANTS;
   renderLeaderboard();
 }
 
-async function apiGet(params) {
-  const url = `https://${RAPIDAPI_HOST}/api/football/?${new URLSearchParams(params)}`;
-  const res = await fetch(url, { headers: { 'x-rapidapi-key': RAPIDAPI_KEY, 'x-rapidapi-host': RAPIDAPI_HOST } });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-}
+// ESPN team names → our internal names (matching POTS)
+const ESPN_NAME_MAP = {
+  'Czechia':        'Czech Republic',
+  'Türkiye':        'Turkey',
+  'United States':  'USA',
+  'Cape Verde':     'Cabo Verde',
+  'Congo DR':       'DR Congo',
+  'Bosnia-Herzegov.':'Bosnia-Herzegovina',
+};
+function normalizeEspnTeam(name) { return ESPN_NAME_MAP[name] || name; }
 
-async function findWcLeague() {
-  if (wcLeagueId) return wcLeagueId;
-  const data = await apiGet({ met: 'Leagues' });
-  const leagues = data.result || [];
-  const wc = leagues.find(l => (l.league_name||'').toLowerCase().includes('world cup') && !(l.league_name||'').toLowerCase().includes('club'));
-  if (wc) { wcLeagueId = wc.league_key; return wcLeagueId; }
-  throw new Error('World Cup league not found in API');
+// ESPN slug → stage_name keywords stageType() can parse
+const ESPN_SLUG_MAP = {
+  'group-stage':  'Group Stage',
+  'round-of-32':  'Round of 32',
+  'round-of-16':  'Round of 16',
+  'quarterfinal': 'Quarterfinal',
+  'semifinal':    'Semifinal',
+  'final':        'Final',
+};
+
+function espnEventToFixture(event) {
+  const comp = event.competitions?.[0] || {};
+  const home = comp.competitors?.find(c => c.homeAway === 'home');
+  const away = comp.competitors?.find(c => c.homeAway === 'away');
+  const st   = event.status?.type || {};
+  const isFinished = st.completed === true;
+  const isLive     = st.state === 'in';
+  const slug = event.season?.slug || '';
+  return {
+    event_home_team:   normalizeEspnTeam(home?.team?.displayName || ''),
+    event_away_team:   normalizeEspnTeam(away?.team?.displayName || ''),
+    event_final_result: (isFinished || isLive) ? `${home?.score||0} - ${away?.score||0}` : '',
+    event_status:  isFinished ? 'Finished' : isLive ? 'inprogress' : 'Scheduled',
+    stage_name:    ESPN_SLUG_MAP[slug] || slug,
+    league_round:  '',
+    event_date:    event.date?.slice(0,10) || '',
+  };
 }
 
 async function refreshData() {
   if (lbParticipants.length === 0) return;
-  if (new Date() < new Date(WC_START)) {
-    setStatus('ready', 'Tournament starts June 11');
-    clearApiError();
-    renderLeaderboard();
-    return;
-  }
   setStatus('loading', 'Fetching scores...');
   try {
-    const id = await findWcLeague();
-    const data = await apiGet({ met:'Fixtures', leagueId:id, from:WC_START, to:WC_END });
-    allFixtures = data.result || [];
+    const startStr = WC_START.replace(/-/g,'');
+    const endStr   = WC_END.replace(/-/g,'');
+    const url = `https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=${startStr}-${endStr}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    allFixtures = (data.events || []).map(espnEventToFixture);
     clearApiError();
-    setStatus('live', `${allFixtures.filter(f=>f.event_status==='Finished').length} results loaded`);
+    const done = allFixtures.filter(f => f.event_status === 'Finished').length;
+    setStatus('live', `${done} result${done !== 1 ? 's' : ''} loaded`);
     renderLeaderboard();
     renderScheduleView();
   } catch(err) {
     setStatus('error', 'Scores unavailable');
-    showApiError('Could not load live scores — they will appear automatically once the tournament begins on June 11.');
+    showApiError('Could not load live scores. Check your connection and try refreshing.');
   }
 }
 
