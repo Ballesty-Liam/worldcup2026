@@ -16,13 +16,13 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 /* ── Header ── */
 header{background:linear-gradient(135deg,#0f172a,#1a2f50);border-bottom:2px solid var(--accent);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
-.h-title{font-size:1.1rem;font-weight:800;letter-spacing:-.3px}
+.h-title{font-size:1.1rem;font-weight:800;letter-spacing:-.3px;white-space:nowrap}
 .h-title span{color:var(--accent)}
-.h-nav{display:flex;gap:6px}
-.tab-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
+.h-nav{display:flex;gap:6px;flex-wrap:nowrap}
+.tab-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
 .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#000}
 .tab-btn:hover:not(.active){border-color:var(--accent);color:var(--accent)}
-.h-status{display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--muted)}
+.h-status{display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--muted);white-space:nowrap}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
 .dot.blink{animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
@@ -119,8 +119,8 @@ main{max-width:1050px;margin:0 auto;padding:24px 16px}
 /* ══════════════════════════════════════
    LEADERBOARD VIEW
 ══════════════════════════════════════ */
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px}
-table{width:100%;border-collapse:collapse}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;min-width:420px}
 thead tr{background:var(--surface2)}
 th{padding:11px 14px;text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
 th.r,td.r{text-align:right}
@@ -235,6 +235,32 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 .sched-score-cell .lbl{font-size:.58rem;font-weight:400;color:var(--muted);margin-left:3px}
 .sched-score-cell .lbl.lv{color:var(--green)}
 .sched-tbd{color:var(--muted);font-style:italic;font-size:.78rem}
+
+/* ══════════════════════════════════════
+   MOBILE
+══════════════════════════════════════ */
+@media(max-width:640px){
+  /* Header: stack title + scrollable nav strip + status */
+  header{flex-direction:column;align-items:stretch;padding:10px 14px;gap:6px}
+  .h-title{font-size:.95rem;text-align:center}
+  .h-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .h-nav::-webkit-scrollbar{display:none}
+  .tab-btn{padding:6px 11px;font-size:.72rem}
+  .h-status{justify-content:center;font-size:.68rem}
+
+  /* Leaderboard: tighter cells */
+  th,td{padding:9px 10px;font-size:.8rem}
+
+  /* Schedule: compress match rows */
+  .sched-match{grid-template-columns:26px 42px 1fr auto;gap:5px;padding:6px 8px;font-size:.74rem}
+  .sched-grp{width:22px;height:22px;font-size:.55rem;border-radius:4px}
+  .sched-time{font-size:.66rem}
+  .nextup-grid{grid-template-columns:1fr}
+
+  /* Home cards: single column on phone */
+  .home-cards{grid-template-columns:1fr}
+  .home-dates{gap:16px}
+}
 </style>
 </head>
 <body>
