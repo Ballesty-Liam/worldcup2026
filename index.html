@@ -278,14 +278,15 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 
 <!-- HEADER -->
 <header>
-  <div class="h-title">⚽ World Cup 2026 <span>Draft & Leaderboard</span></div>
+  <div class="h-title"><span data-i18n="home.header.main">⚽ World Cup 2026</span> <span data-i18n="header.subtitle">Draft &amp; Leaderboard</span></div>
   <nav class="h-nav">
-    <button class="tab-btn" id="tab-home" onclick="showView('home')">🏠 Home</button>
-    <button class="tab-btn" id="tab-draft" onclick="showView('draft')">🎲 Draft</button>
-    <button class="tab-btn" id="tab-leaderboard" onclick="showView('leaderboard')">🏆 Leaderboard</button>
-    <button class="tab-btn" id="tab-schedule" onclick="showView('schedule')">📅 Schedule</button>
-    <button class="tab-btn" id="tab-coffee" onclick="showView('coffee')" style="border-color:rgba(139,92,246,.4);color:#c4b5fd">🙏 Buy me a coffee!</button>
-    <button class="tab-btn" style="border-color:rgba(239,68,68,.4);color:var(--red)" onclick="reportIssue()">⚠️ Report Issue</button>
+    <button class="tab-btn" id="tab-home" data-i18n="tab.home" onclick="showView('home')">🏠 Home</button>
+    <button class="tab-btn" id="tab-draft" data-i18n="tab.draft" onclick="showView('draft')">🎲 Draft</button>
+    <button class="tab-btn" id="tab-leaderboard" data-i18n="tab.lb" onclick="showView('leaderboard')">🏆 Leaderboard</button>
+    <button class="tab-btn" id="tab-schedule" data-i18n="tab.sched" onclick="showView('schedule')">📅 Schedule</button>
+    <button class="tab-btn" id="tab-coffee" data-i18n="tab.coffee" onclick="showView('coffee')" style="border-color:rgba(139,92,246,.4);color:#c4b5fd">🙏 Buy me a coffee!</button>
+    <button class="tab-btn" data-i18n="tab.report" style="border-color:rgba(239,68,68,.4);color:var(--red)" onclick="reportIssue()">⚠️ Report Issue</button>
+    <button class="tab-btn" id="btn-china-mode" onclick="toggleChinaMode()" style="border-color:rgba(239,68,68,.5);color:#ef4444;background:rgba(239,68,68,.06)">🇨🇳 China Mode</button>
   </nav>
   <div class="h-status">
     <div class="dot blink" id="status-dot"></div>
@@ -297,22 +298,22 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 <div id="view-home">
 <main>
   <div class="home-hero">
-    <div class="home-title">⚽ World Cup 2026</div>
-    <div style="font-size:clamp(.9rem,2.5vw,1.2rem);font-weight:800;color:var(--muted);letter-spacing:2px;margin-bottom:12px">DRAFT POOL</div>
-    <p class="home-sub">12 players. 48 teams. One winner. Track your teams through the entire tournament and see who comes out on top.</p>
+    <div class="home-title" data-i18n="home.title">⚽ World Cup 2026</div>
+    <div data-i18n="home.pool" style="font-size:clamp(.9rem,2.5vw,1.2rem);font-weight:800;color:var(--muted);letter-spacing:2px;margin-bottom:12px">DRAFT POOL</div>
+    <p class="home-sub" data-i18n="home.sub">12 players. 48 teams. One winner. Track your teams through the entire tournament and see who comes out on top.</p>
   </div>
 
   <div class="home-dates">
-    <div class="home-date-item"><strong>June 11</strong><span>Group stage begins</span></div>
-    <div class="home-date-item"><strong>48 Teams</strong><span>12 groups of 4</span></div>
-    <div class="home-date-item"><strong>July 19</strong><span>Final</span></div>
-    <div class="home-date-item"><strong>12 Players</strong><span>4 teams each</span></div>
+    <div class="home-date-item"><strong data-i18n="home.date1.val">June 11</strong><span data-i18n="home.date1.lbl">Group stage begins</span></div>
+    <div class="home-date-item"><strong data-i18n="home.date2.val">48 Teams</strong><span data-i18n="home.date2.lbl">12 groups of 4</span></div>
+    <div class="home-date-item"><strong data-i18n="home.date3.val">July 19</strong><span data-i18n="home.date3.lbl">Final</span></div>
+    <div class="home-date-item"><strong data-i18n="home.date4.val">12 Players</strong><span data-i18n="home.date4.lbl">4 teams each</span></div>
   </div>
 
   <div class="home-cards">
     <div class="home-card">
-      <h3>How the Draft Works</h3>
-      <ul>
+      <h3 data-i18n="home.card1.h">How the Draft Works</h3>
+      <ul data-i18n-html="home.card1.body">
         <li>48 teams are split into 4 pots of 12</li>
         <li>Each player receives one team from each pot</li>
         <li>Teams are assigned randomly via the draft ceremony</li>
@@ -320,8 +321,8 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
       </ul>
     </div>
     <div class="home-card">
-      <h3>Scoring System</h3>
-      <ul>
+      <h3 data-i18n="home.card2.h">Scoring System</h3>
+      <ul data-i18n-html="home.card2.body">
         <li>Group stage win: <strong style="color:var(--accent)">+3 pts</strong></li>
         <li>Group stage draw: <strong style="color:var(--accent)">+1 pt</strong></li>
         <li>Knockout win: <strong style="color:var(--accent)">+3 pts</strong></li>
@@ -333,8 +334,8 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
       </ul>
     </div>
     <div class="home-card">
-      <h3>The Pots</h3>
-      <ul>
+      <h3 data-i18n="home.card3.h">The Pots</h3>
+      <ul data-i18n-html="home.card3.body">
         <li><strong style="color:var(--p1)">Pot 1</strong> — Top seeds &amp; hosts (Spain, Argentina, USA…)</li>
         <li><strong style="color:var(--p2)">Pot 2</strong> — Strong contenders (Croatia, Japan, Colombia…)</li>
         <li><strong style="color:var(--p3)">Pot 3</strong> — Underdogs (Norway, Scotland, Egypt…)</li>
@@ -342,15 +343,15 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
       </ul>
     </div>
     <div class="home-card">
-      <h3>Participants</h3>
-      <p style="margin-bottom:8px">12 players competing this tournament:</p>
+      <h3 data-i18n="home.card4.h">Participants</h3>
+      <p data-i18n="home.card4.sub" style="margin-bottom:8px">12 players competing this tournament:</p>
       <p id="home-participants" style="color:var(--text);line-height:1.8"></p>
     </div>
   </div>
 
   <div class="home-cta">
-    <button class="btn-start" onclick="showView('draft')">🎲 Go to Draft</button>
-    <button class="btn-save-go" style="margin:0" onclick="showView('leaderboard')">🏆 View Leaderboard</button>
+    <button class="btn-start" data-i18n="home.cta1" onclick="showView('draft')">🎲 Go to Draft</button>
+    <button class="btn-save-go" data-i18n="home.cta2" style="margin:0" onclick="showView('leaderboard')">🏆 View Leaderboard</button>
   </div>
 </main>
 </div>
@@ -361,11 +362,11 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 
   <!-- INTRO -->
   <div id="draft-intro">
-    <div class="draft-hero">⚽ WORLD CUP 2026</div>
-    <div style="font-size:clamp(1rem,3vw,1.6rem);font-weight:800;color:var(--muted);margin-bottom:8px;letter-spacing:2px">OFFICIAL DRAFT</div>
-    <p class="draft-sub">12 participants · 4 pots · One team each · Reveal all pot assignments simultaneously</p>
+    <div class="draft-hero" data-i18n="draft.title">⚽ WORLD CUP 2026</div>
+    <div data-i18n="draft.subtitle" style="font-size:clamp(1rem,3vw,1.6rem);font-weight:800;color:var(--muted);margin-bottom:8px;letter-spacing:2px">OFFICIAL DRAFT</div>
+    <p class="draft-sub" data-i18n="draft.sub2">12 participants · 4 pots · One team each · Reveal all pot assignments simultaneously</p>
     <div class="participant-intro-grid" id="intro-names"></div>
-    <button class="btn-start" onclick="showView('draft')">📋 &nbsp; VIEW DRAFT RESULTS</button>
+    <button class="btn-start" data-i18n="draft.viewbtn" onclick="showView('draft')">📋 &nbsp; VIEW DRAFT RESULTS</button>
   </div>
 
   <!-- ACTIVE CEREMONY -->
@@ -387,11 +388,11 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   <!-- DRAFT COMPLETE -->
   <div id="draft-complete-view">
     <div class="complete-hero">
-      <h2>🏆 DRAFT COMPLETE!</h2>
-      <p style="color:var(--muted);margin-top:6px">All 48 teams assigned. Let the tournament begin!</p>
+      <h2 data-i18n="draft.complete">🏆 DRAFT COMPLETE!</h2>
+      <p data-i18n="draft.complete2" style="color:var(--muted);margin-top:6px">All 48 teams assigned. Let the tournament begin!</p>
     </div>
     <div class="draft-results-grid" id="complete-results-grid"></div>
-    <button class="btn-save-go" onclick="saveDraftAndShowLeaderboard()">VIEW LEADERBOARD →</button>
+    <button class="btn-save-go" data-i18n="draft.viewlb" onclick="saveDraftAndShowLeaderboard()">VIEW LEADERBOARD →</button>
   </div>
 
 </main>
@@ -403,17 +404,17 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
   <div class="alert" id="api-error"></div>
 
   <div class="scoring-key">
-    <h3>Scoring System</h3>
-    <div class="skey-g"><span>Group Stage</span>Win: <span class="hi">+3</span> &nbsp; Draw: <span class="hi">+1</span> &nbsp; Loss: 0</div>
-    <div class="skey-g"><span>Knockouts</span>Win: <span class="hi">+3</span> &nbsp; Loss: 0</div>
-    <div class="skey-g"><span>Bonus</span>R32: <span class="hi">+1</span> · R16: <span class="hi">+1</span> · QF: <span class="hi">+2</span> · SF: <span class="hi">+2</span> · Final: <span class="hi">+3</span></div>
+    <h3 data-i18n="lb.scoring">Scoring System</h3>
+    <div class="skey-g" data-i18n-html="lb.skey1"><span>Group Stage</span>Win: <span class="hi">+3</span> &nbsp; Draw: <span class="hi">+1</span> &nbsp; Loss: 0</div>
+    <div class="skey-g" data-i18n-html="lb.skey2"><span>Knockouts</span>Win: <span class="hi">+3</span> &nbsp; Loss: 0</div>
+    <div class="skey-g" data-i18n-html="lb.skey3"><span>Bonus</span>R32: <span class="hi">+1</span> · R16: <span class="hi">+1</span> · QF: <span class="hi">+2</span> · SF: <span class="hi">+2</span> · Final: <span class="hi">+3</span></div>
   </div>
 
   <div class="lb-section-header">
-    <h2>🏆 Leaderboard</h2>
+    <h2 data-i18n="lb.header">🏆 Leaderboard</h2>
     <div class="lb-actions">
-      <button class="sm" onclick="refreshData()">↻ Refresh Scores</button>
-      <button class="sm" onclick="showView('draft')">← Back to Draft</button>
+      <button class="sm" data-i18n="lb.refresh" onclick="refreshData()">↻ Refresh Scores</button>
+      <button class="sm" data-i18n="lb.backdraft" onclick="showView('draft')">← Back to Draft</button>
     </div>
   </div>
 
@@ -422,18 +423,18 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
       <thead>
         <tr>
           <th style="width:40px">#</th>
-          <th>Participant</th>
-          <th class="r">Match</th>
-          <th class="r">Bonus</th>
-          <th class="r">GD</th>
-          <th class="r">Total</th>
+          <th data-i18n="lb.th.participant">Participant</th>
+          <th class="r" data-i18n="lb.th.match">Schmeckles</th>
+          <th class="r" data-i18n="lb.th.bonus">Bussy</th>
+          <th class="r" data-i18n="lb.th.gd">GD</th>
+          <th class="r" data-i18n="lb.th.total">Total</th>
         </tr>
       </thead>
       <tbody id="lb-body"></tbody>
     </table>
   </div>
 
-  <div class="no-data" id="no-data-msg" style="display:none">
+  <div class="no-data" id="no-data-msg" data-i18n="lb.nodata" style="display:none">
     ⏳ Tournament starts June 11 — results will appear as games finish.
   </div>
 </main>
@@ -449,15 +450,15 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
         <h2 id="nextup-title">📅 Today's Games</h2>
         <p id="nextup-subtitle"></p>
       </div>
-      <button class="sm" onclick="refreshScheduleData()">↻ Refresh</button>
+      <button class="sm" data-i18n="sched.refresh" onclick="refreshScheduleData()">↻ Refresh</button>
     </div>
     <div class="nextup-grid" id="nextup-grid"><div class="no-data">Loading…</div></div>
   </div>
 
   <!-- Full Schedule -->
   <div class="lb-section-header" style="margin-top:8px">
-    <h2>📋 Full Schedule</h2>
-    <span style="font-size:.72rem;color:var(--muted)">All times in your local timezone</span>
+    <h2 data-i18n="sched.full">📋 Full Schedule</h2>
+    <span data-i18n="sched.tz" style="font-size:.72rem;color:var(--muted)">All times in your local timezone</span>
   </div>
   <div id="sched-container"></div>
 </main>
@@ -471,6 +472,127 @@ button.sm:hover{border-color:var(--accent);color:var(--accent)}
 </div>
 
 <script>
+// ─────────────────────────────────────────────────
+//  LANGUAGE / CHINA MODE
+// ─────────────────────────────────────────────────
+const STRINGS={
+  'home.header.main':{en:'⚽ World Cup 2026',zh:'⚽ 2026世界杯'},
+  'header.subtitle':{en:'Draft & Leaderboard',zh:'选秀与排行榜'},
+  'tab.home':{en:'🏠 Home',zh:'🏠 主页'},
+  'tab.draft':{en:'🎲 Draft',zh:'🎲 选秀'},
+  'tab.lb':{en:'🏆 Leaderboard',zh:'🏆 排行榜'},
+  'tab.sched':{en:'📅 Schedule',zh:'📅 赛程'},
+  'tab.coffee':{en:'🙏 Buy me a coffee!',zh:'🙏 请我喝咖啡！'},
+  'tab.report':{en:'⚠️ Report Issue',zh:'⚠️ 报告问题'},
+  'home.title':{en:'⚽ World Cup 2026',zh:'⚽ 2026世界杯'},
+  'home.pool':{en:'DRAFT POOL',zh:'选秀池'},
+  'home.sub':{en:'12 players. 48 teams. One winner. Track your teams through the entire tournament and see who comes out on top.',zh:'12名球员。48支球队。一个冠军。追踪您的球队参加整个锦标赛，看看谁会脱颖而出。'},
+  'home.date1.val':{en:'June 11',zh:'6月11日'},
+  'home.date1.lbl':{en:'Group stage begins',zh:'小组赛开始'},
+  'home.date2.val':{en:'48 Teams',zh:'48支球队'},
+  'home.date2.lbl':{en:'12 groups of 4',zh:'12组，每组4队'},
+  'home.date3.val':{en:'July 19',zh:'7月19日'},
+  'home.date3.lbl':{en:'Final',zh:'决赛'},
+  'home.date4.val':{en:'12 Players',zh:'12名球员'},
+  'home.date4.lbl':{en:'4 teams each',zh:'每人4队'},
+  'home.card1.h':{en:'How the Draft Works',zh:'选秀规则'},
+  'home.card1.body':{
+    en:'<li>48 teams are split into 4 pots of 12</li><li>Each player receives one team from each pot</li><li>Teams are assigned randomly via the draft ceremony</li><li>All pot assignments are revealed simultaneously — everyone sees their Pot 1 team at the same moment, then Pot 2, and so on</li>',
+    zh:'<li>48支球队分成4组，每组12队</li><li>每名球员从每组获得一队</li><li>球队通过选秀仪式随机分配</li><li>所有组别分配同时揭晓——所有人同时看到自己的第1组球队，然后是第2组，以此类推</li>'
+  },
+  'home.card2.h':{en:'Scoring System',zh:'积分系统'},
+  'home.card2.body':{
+    en:'<li>Group stage win: <strong style="color:var(--accent)">+3 pts</strong></li><li>Group stage draw: <strong style="color:var(--accent)">+1 pt</strong></li><li>Knockout win: <strong style="color:var(--accent)">+3 pts</strong></li><li>Reach Round of 32: <strong style="color:var(--green)">+1 bonus</strong></li><li>Reach Round of 16: <strong style="color:var(--green)">+1 bonus</strong></li><li>Reach Quarter-finals: <strong style="color:var(--green)">+2 bonus</strong></li><li>Reach Semi-finals: <strong style="color:var(--green)">+2 bonus</strong></li><li>Reach the Final: <strong style="color:var(--green)">+3 bonus</strong></li>',
+    zh:'<li>小组赛胜利：<strong style="color:var(--accent)">+3分</strong></li><li>小组赛平局：<strong style="color:var(--accent)">+1分</strong></li><li>淘汰赛胜利：<strong style="color:var(--accent)">+3分</strong></li><li>晋级32强：<strong style="color:var(--green)">+1奖励</strong></li><li>晋级16强：<strong style="color:var(--green)">+1奖励</strong></li><li>晋级四分之一决赛：<strong style="color:var(--green)">+2奖励</strong></li><li>晋级半决赛：<strong style="color:var(--green)">+2奖励</strong></li><li>晋级决赛：<strong style="color:var(--green)">+3奖励</strong></li>'
+  },
+  'home.card3.h':{en:'The Pots',zh:'分组'},
+  'home.card3.body':{
+    en:'<li><strong style="color:var(--p1)">Pot 1</strong> — Top seeds &amp; hosts (Spain, Argentina, USA…)</li><li><strong style="color:var(--p2)">Pot 2</strong> — Strong contenders (Croatia, Japan, Colombia…)</li><li><strong style="color:var(--p3)">Pot 3</strong> — Underdogs (Norway, Scotland, Egypt…)</li><li><strong style="color:var(--p4)">Pot 4</strong> — Dark horses (Turkey, Ghana, Sweden…)</li>',
+    zh:'<li><strong style="color:var(--p1)">第1组</strong> — 顶级种子队&amp;东道主（西班牙、阿根廷、美国…）</li><li><strong style="color:var(--p2)">第2组</strong> — 强劲竞争者（克罗地亚、日本、哥伦比亚…）</li><li><strong style="color:var(--p3)">第3组</strong> — 黑马（挪威、苏格兰、埃及…）</li><li><strong style="color:var(--p4)">第4组</strong> — 潜力股（土耳其、加纳、瑞典…）</li>'
+  },
+  'home.card4.h':{en:'Participants',zh:'参与者'},
+  'home.card4.sub':{en:'12 players competing this tournament:',zh:'12名球员参加本次锦标赛：'},
+  'home.cta1':{en:'🎲 Go to Draft',zh:'🎲 前往选秀'},
+  'home.cta2':{en:'🏆 View Leaderboard',zh:'🏆 查看排行榜'},
+  'draft.title':{en:'⚽ WORLD CUP 2026',zh:'⚽ 2026世界杯'},
+  'draft.subtitle':{en:'OFFICIAL DRAFT',zh:'官方选秀'},
+  'draft.sub2':{en:'12 participants · 4 pots · One team each · Reveal all pot assignments simultaneously',zh:'12名参与者 · 4个分组 · 每人一队 · 同时揭晓所有分组分配'},
+  'draft.viewbtn':{en:'📋   VIEW DRAFT RESULTS',zh:'📋   查看选秀结果'},
+  'draft.complete':{en:'🏆 DRAFT COMPLETE!',zh:'🏆 选秀完成！'},
+  'draft.complete2':{en:'All 48 teams assigned. Let the tournament begin!',zh:'所有48支球队已分配完毕。让锦标赛开始！'},
+  'draft.viewlb':{en:'VIEW LEADERBOARD →',zh:'查看排行榜 →'},
+  'lb.scoring':{en:'Scoring System',zh:'积分系统'},
+  'lb.skey1':{en:'<span>Group Stage</span>Win: <span class="hi">+3</span> &nbsp; Draw: <span class="hi">+1</span> &nbsp; Loss: 0',zh:'<span>小组赛</span>胜: <span class="hi">+3</span> &nbsp; 平: <span class="hi">+1</span> &nbsp; 负: 0'},
+  'lb.skey2':{en:'<span>Knockouts</span>Win: <span class="hi">+3</span> &nbsp; Loss: 0',zh:'<span>淘汰赛</span>胜: <span class="hi">+3</span> &nbsp; 负: 0'},
+  'lb.skey3':{en:'<span>Bonus</span>R32: <span class="hi">+1</span> · R16: <span class="hi">+1</span> · QF: <span class="hi">+2</span> · SF: <span class="hi">+2</span> · Final: <span class="hi">+3</span>',zh:'<span>奖励</span>32强: <span class="hi">+1</span> · 16强: <span class="hi">+1</span> · 四分之一: <span class="hi">+2</span> · 半决赛: <span class="hi">+2</span> · 决赛: <span class="hi">+3</span>'},
+  'lb.header':{en:'🏆 Leaderboard',zh:'🏆 排行榜'},
+  'lb.refresh':{en:'↻ Refresh Scores',zh:'↻ 刷新比分'},
+  'lb.backdraft':{en:'← Back to Draft',zh:'← 返回选秀'},
+  'lb.th.participant':{en:'Participant',zh:'参与者'},
+  'lb.th.match':{en:'Schmeckles',zh:'施梅克斯'},
+  'lb.th.bonus':{en:'Bussy',zh:'布西'},
+  'lb.th.gd':{en:'GD',zh:'净胜球'},
+  'lb.th.total':{en:'Total',zh:'总分'},
+  'lb.nodraft':{en:'Complete the draft first, then come back here.',zh:'请先完成选秀，然后再回来。'},
+  'lb.nodata':{en:'⏳ Tournament starts June 11 — results will appear as games finish.',zh:'⏳ 锦标赛于6月11日开始——比赛结束后将显示结果。'},
+  'sched.refresh':{en:'↻ Refresh',zh:'↻ 刷新'},
+  'sched.full':{en:'📋 Full Schedule',zh:'📋 完整赛程'},
+  'sched.tz':{en:'All times in your local timezone',zh:'所有时间均为您的本地时区'},
+  'sched.loading':{en:'Loading…',zh:'加载中…'},
+  'sched.nofixtures':{en:'No upcoming fixtures found.',zh:'未找到即将到来的赛事。'},
+  'dyn.today':{en:'Today',zh:'今天'},
+  'dyn.noresults':{en:'No results yet',zh:'暂无结果'},
+  'dyn.stagebonus':{en:'🎯 Stage bonuses',zh:'🎯 阶段奖励'},
+  'dyn.pts':{en:' pts',zh:'分'},
+  'dyn.pot1':{en:'Pot 1',zh:'第1组'},
+  'dyn.pot2':{en:'Pot 2',zh:'第2组'},
+  'dyn.pot3':{en:'Pot 3',zh:'第3组'},
+  'dyn.pot4':{en:'Pot 4',zh:'第4组'},
+  'dyn.matchup':{en:'⚔️ player matchup',zh:'⚔️ 球员对决'},
+  'dyn.selfmatch':{en:'🔀 same player',zh:'🔀 同一球员'},
+  'dyn.vs':{en:'vs',zh:'对阵'},
+  'dyn.live':{en:'LIVE',zh:'直播'},
+  'dyn.ft':{en:'FT',zh:'完场'},
+  'dyn.tbd':{en:'TBD',zh:'待定'},
+  'dyn.v':{en:'v',zh:'对'},
+  'dyn.fetching':{en:'Fetching scores...',zh:'获取比分中...'},
+  'dyn.unavailable':{en:'Scores unavailable',zh:'比分不可用'},
+  'dyn.apierror':{en:'Could not load live scores. Check your connection and try refreshing.',zh:'无法加载实时比分。请检查您的网络连接并尝试刷新。'},
+  'stage.r32':{en:'Round of 32',zh:'32强赛'},
+  'stage.r16':{en:'Round of 16',zh:'16强赛'},
+  'stage.qf':{en:'Quarter-Finals',zh:'四分之一决赛'},
+  'stage.sf':{en:'Semi-Finals',zh:'半决赛'},
+  'stage.3rd':{en:'Third Place',zh:'季军赛'},
+  'stage.final':{en:'Final',zh:'决赛'},
+};
+let chinaMode=false;
+function tr(key){return STRINGS[key]?.[chinaMode?'zh':'en']??key;}
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(STRINGS[k])el.textContent=tr(k);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-html');
+    if(STRINGS[k])el.innerHTML=tr(k);
+  });
+  const btn=document.getElementById('btn-china-mode');
+  if(btn)btn.textContent=chinaMode?'🌐 English Mode':'🇨🇳 China Mode';
+  document.title=chinaMode?'2026世界杯 选秀与排行榜':'World Cup 2026 Draft & Leaderboard';
+  document.documentElement.lang=chinaMode?'zh':'en';
+  const st=document.getElementById('status-text');
+  if(st&&(st.textContent==='Ready'||st.textContent==='就绪'))st.textContent=chinaMode?'就绪':'Ready';
+  renderLeaderboard();
+  renderScheduleView();
+}
+function toggleChinaMode(){
+  chinaMode=!chinaMode;
+  const btn=document.getElementById('btn-china-mode');
+  if(chinaMode){btn.style.borderColor='rgba(96,165,250,.5)';btn.style.color='#60a5fa';btn.style.background='rgba(96,165,250,.06)';}
+  else{btn.style.borderColor='rgba(239,68,68,.5)';btn.style.color='#ef4444';btn.style.background='rgba(239,68,68,.06)';}
+  applyLang();
+}
+
 // ─────────────────────────────────────────────────
 //  DATA
 // ─────────────────────────────────────────────────
@@ -716,8 +838,9 @@ function renderPotReveal() {
   const badge = document.getElementById('pot-label-badge');
   badge.textContent = pot.name;
   badge.className = 'pot-badge ' + pot.cls;
-  document.getElementById('pot-subtitle').textContent =
-    `All 12 participants receive their ${pot.name} team simultaneously`;
+  document.getElementById('pot-subtitle').textContent = chinaMode
+    ? `所有12名参与者同时获得${pot.name}球队`
+    : `All 12 participants receive their ${pot.name} team simultaneously`;
 
   // Build cards — show already flipped if this pot was already revealed
   const grid = document.getElementById('pot-cards-grid');
@@ -960,7 +1083,7 @@ function espnEventToFixture(event) {
 
 async function refreshData() {
   if (lbParticipants.length === 0) return;
-  setStatus('loading', 'Fetching scores...');
+  setStatus('loading', tr('dyn.fetching'));
   try {
     const startStr = WC_START.replace(/-/g,'');
     const endStr   = WC_END.replace(/-/g,'');
@@ -971,12 +1094,13 @@ async function refreshData() {
     allFixtures = (data.events || []).map(espnEventToFixture);
     clearApiError();
     const done = allFixtures.filter(f => f.event_status === 'Finished').length;
-    setStatus('live', `${done} result${done !== 1 ? 's' : ''} loaded`);
+    const loadedMsg = chinaMode ? `已加载${done}个结果` : `${done} result${done !== 1 ? 's' : ''} loaded`;
+    setStatus('live', loadedMsg);
     renderLeaderboard();
     renderScheduleView();
   } catch(err) {
-    setStatus('error', 'Scores unavailable');
-    showApiError('Could not load live scores. Check your connection and try refreshing.');
+    setStatus('error', tr('dyn.unavailable'));
+    showApiError(tr('dyn.apierror'));
   }
 }
 
@@ -993,7 +1117,12 @@ function stageType(f) {
   if (s.includes('final')&&!s.includes('semi')&&!s.includes('3rd')&&!s.includes('third')) return 'final';
   return 'ko';
 }
-function stageLabel(t) { return {group:'Group',r32:'R32',r16:'R16',qf:'QF',sf:'SF',final:'Final',ko:'Knockout'}[t]||t; }
+function stageLabel(s) {
+  const m=chinaMode
+    ?{group:'小组',r32:'32强',r16:'16强',qf:'四强',sf:'半决赛',final:'决赛',ko:'淘汰赛'}
+    :{group:'Group',r32:'R32',r16:'R16',qf:'QF',sf:'SF',final:'Final',ko:'Knockout'};
+  return m[s]||s;
+}
 function isKO(t) { return ['r32','r16','qf','sf','final','ko'].includes(t); }
 
 function scoreTeam(teamName) {
@@ -1029,7 +1158,7 @@ function scoreTeam(teamName) {
 
 function renderLeaderboard() {
   if (lbParticipants.length===0) {
-    document.getElementById('lb-body').innerHTML = `<tr><td colspan="6"><div class="no-data">Complete the draft first, then come back here.</div></td></tr>`;
+    document.getElementById('lb-body').innerHTML = `<tr><td colspan="6"><div class="no-data">${tr('lb.nodraft')}</div></td></tr>`;
     return;
   }
   const scored = lbParticipants.map(p => {
@@ -1071,11 +1200,11 @@ function renderLeaderboard() {
 }
 
 function buildExpand(p) {
-  const potLabels=['Pot 1','Pot 2','Pot 3','Pot 4'];
+  const potLabels=[tr('dyn.pot1'),tr('dyn.pot2'),tr('dyn.pot3'),tr('dyn.pot4')];
   return `<div class="team-bd-grid">${p.teams.map((team,i)=>{
     const ts=p.ts[i];
     const rows=ts.results.length===0
-      ?'<div class="m-item" style="padding:5px 0;color:var(--muted)">No results yet</div>'
+      ?`<div class="m-item" style="padding:5px 0;color:var(--muted)">${tr('dyn.noresults')}</div>`
       :ts.results.map(r=>`<div class="m-item">
           <span>${esc(r.opponent)} <span class="stage-tag">${r.stL}</span></span>
           <span style="display:flex;align-items:center;gap:6px">
@@ -1083,11 +1212,11 @@ function buildExpand(p) {
             <span class="m-res ${r.outcome}">${r.outcome==='win'?'+'+r.pts:r.outcome==='draw'?'+1':'0'}</span>
           </span>
         </div>`).join('');
-    const bonusRow=ts.bonus>0?`<div class="bonus-line"><span>🎯 Stage bonuses</span><span>+${ts.bonus}</span></div>`:'';
+    const bonusRow=ts.bonus>0?`<div class="bonus-line"><span>${tr('dyn.stagebonus')}</span><span>+${ts.bonus}</span></div>`:'';
     return `<div class="t-card">
       <div class="t-card-header">
         <div><div class="t-card-name">${TEAM_CODE[team] ? flagImg(TEAM_CODE[team], 16) + ' ' : ''}${esc(team)}</div><div class="t-card-pot">${potLabels[i]}</div></div>
-        <div class="t-card-score">${ts.total} pts</div>
+        <div class="t-card-score">${ts.total}${tr('dyn.pts')}</div>
       </div>${rows}${bonusRow}</div>`;
   }).join('')}</div>`;
 }
@@ -1245,7 +1374,7 @@ function getMatchScore(home, away) {
     if (!teamMatch(f.event_home_team, home)||!teamMatch(f.event_away_team, away)) continue;
     const res=(f.event_final_result||'').replace(/\s/g,'').split('-');
     if (res.length!==2||isNaN(parseInt(res[0]))||isNaN(parseInt(res[1]))) continue;
-    return {home:res[0], away:res[1], live, label: live?'LIVE':'FT'};
+    return {home:res[0], away:res[1], live, label: live?tr('dyn.live'):tr('dyn.ft')};
   }
   return null;
 }
@@ -1259,7 +1388,7 @@ function renderNextUp() {
   const todayKey = localDateKey(now);
 
   let displayFixtures = FIXTURES.filter(f => f.h && localDateKey(new Date(f.d)) === todayKey);
-  let titleText = "📅 Today's Games";
+  let titleText = tr('sched.today');
   let subtitleText = now.toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric', year:'numeric'});
 
   if (displayFixtures.length === 0) {
@@ -1267,18 +1396,19 @@ function renderNextUp() {
     if (future.length > 0) {
       const nextKey = localDateKey(new Date(future[0].d));
       displayFixtures = future.filter(f => localDateKey(new Date(f.d)) === nextKey);
-      titleText = '📅 Next Up';
+      titleText = tr('sched.nextup');
       subtitleText = new Date(future[0].d).toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric', year:'numeric'});
     }
   }
 
   document.getElementById('nextup-title').textContent = titleText;
-  document.getElementById('nextup-subtitle').textContent =
-    subtitleText + (displayFixtures.length ? ' · ' + displayFixtures.length + ' match' + (displayFixtures.length!==1?'es':'') : '');
+  const cnt = displayFixtures.length;
+  const matchSuffix = cnt ? (chinaMode ? ` · ${cnt}场比赛` : ` · ${cnt} match${cnt!==1?'es':''}`) : '';
+  document.getElementById('nextup-subtitle').textContent = subtitleText + matchSuffix;
 
   const grid = document.getElementById('nextup-grid');
   if (displayFixtures.length === 0) {
-    grid.innerHTML = '<div class="no-data">No upcoming fixtures found.</div>';
+    grid.innerHTML = `<div class="no-data">${tr('sched.nofixtures')}</div>`;
     return;
   }
 
@@ -1298,13 +1428,13 @@ function renderNextUp() {
     if (score) {
       centerHtml = `<div class="nextup-score-num">${score.home}–${score.away}</div><span class="nextup-score-lbl${score.live?' live':''}">${score.label}</span>`;
     } else {
-      centerHtml = `<div class="nextup-vs">vs</div>`;
+      centerHtml = `<div class="nextup-vs">${tr('dyn.vs')}</div>`;
     }
 
     const hc = TEAM_CODE[home], ac = TEAM_CODE[away];
     const badgeHtml = isSelf
-      ? '<div style="text-align:center;margin-bottom:6px"><span class="selfmatch-badge">🔀 same player</span></div>'
-      : isMatchup ? '<div style="text-align:center;margin-bottom:6px"><span class="matchup-badge">⚔️ player matchup</span></div>' : '';
+      ? `<div style="text-align:center;margin-bottom:6px"><span class="selfmatch-badge">${tr('dyn.selfmatch')}</span></div>`
+      : isMatchup ? `<div style="text-align:center;margin-bottom:6px"><span class="matchup-badge">${tr('dyn.matchup')}</span></div>` : '';
 
     return `<div class="nextup-card ${isSelf?'is-selfmatch':isMatchup?'is-matchup':isRelevant?'is-relevant':''}">
       ${badgeHtml}
@@ -1353,7 +1483,7 @@ function renderFullSchedule() {
   });
   dayOrder.sort((a,b) => dayMap[a].ts - dayMap[b].ts);
 
-  const STAGE_LABELS = {R32:'Round of 32',R16:'Round of 16',QF:'Quarter-Finals',SF:'Semi-Finals','3rd Place':'Third Place',Final:'Final'};
+  const STAGE_LABELS = {R32:tr('stage.r32'),R16:tr('stage.r16'),QF:tr('stage.qf'),SF:tr('stage.sf'),'3rd Place':tr('stage.3rd'),Final:tr('stage.final')};
   let html = '';
   let lastStageSep = null;
 
@@ -1370,7 +1500,7 @@ function renderFullSchedule() {
     html += `<div class="sched-day-hdr">
       ${day.isToday ? '<div class="today-pip"></div>' : ''}
       <span class="sched-day-name">${esc(day.full)}</span>
-      ${day.isToday ? '<span class="sched-day-sub" style="color:var(--green);font-weight:700">Today</span>' : ''}
+      ${day.isToday ? `<span class="sched-day-sub" style="color:var(--green);font-weight:700">${tr('dyn.today')}</span>` : ''}
     </div>`;
 
     day.fixtures.forEach(f => {
@@ -1380,7 +1510,7 @@ function renderFullSchedule() {
         html += `<div class="sched-match">
           <div class="sched-grp ko">${esc(f.st||'')}</div>
           <div class="sched-time">${esc(time)}</div>
-          <div class="sched-teams"><span class="sched-tbd">TBD <span class="sched-vs-txt">v</span> TBD</span></div>
+          <div class="sched-teams"><span class="sched-tbd">${tr('dyn.tbd')} <span class="sched-vs-txt">${tr('dyn.v')}</span> ${tr('dyn.tbd')}</span></div>
           <div></div>
         </div>`;
         return;
@@ -1405,7 +1535,7 @@ function renderFullSchedule() {
         <div class="sched-time">${esc(time)}</div>
         <div class="sched-teams">
           <span class="sched-side">${hc?flagImg(hc,16):''} ${esc(home)}${ho?` <span class="otag">${esc(ho)}</span>`:''}</span>
-          <span class="sched-vs-txt">v</span>
+          <span class="sched-vs-txt">${tr('dyn.v')}</span>
           <span class="sched-side">${ac?flagImg(ac,16):''} ${esc(away)}${ao?` <span class="otag">${esc(ao)}</span>`:''}</span>
         </div>
         ${scoreHtml}
